@@ -10,7 +10,7 @@ namespace DW_Projeto_RazorPages.Data.Model
     public class MyUser
     {
         /// <summary>
-        /// Chave Primaria
+        /// Chave Primaria (PK)
         /// </summary>
         [Key]
         public int Id { get; set; }
