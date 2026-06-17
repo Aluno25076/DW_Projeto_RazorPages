@@ -49,5 +49,10 @@ namespace DW_Projeto_RazorPages.Data.Model
             Monthly,
             Yearly
         }
+
+        /// <summary>
+        /// Lista de Membros inscritos no plano/subscrição
+        /// </summary>
+        public ICollection<Member> MembersList { get; set; } = [];
     }
 }
