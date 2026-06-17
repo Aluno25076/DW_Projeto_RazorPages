@@ -13,7 +13,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Chave primaria (PK)
         /// </summary>
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
 
         /// <summary>
@@ -49,5 +49,10 @@ namespace DW_Projeto_RazorPages.Data.Model
             Monthly,
             Yearly
         }
+
+        /// <summary>
+        /// Lista de Membros inscritos no plano/subscrição
+        /// </summary>
+        public ICollection<Member> MembersList { get; set; } = [];
     }
 }
