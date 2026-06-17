@@ -24,12 +24,6 @@ namespace DW_Projeto_RazorPages.Data.Model
         [Display(Name = "Data de nascimento")]
         [DataType(DataType.Date)]
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
-
-        /* ***************************
-         * Relacionamento de N-1
-         * ***************************
-         */
-
         
     }
 }
