@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-DW_Projeto_RazorPages-de0f3494-f586-424c-a14b-338f0f859462</UserSecretsId>
+    <UserSecretsId>aspnet-DW_Projeto_RazorPages-6b425fda-836c-4075-829d-f6ebdb90bc2a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

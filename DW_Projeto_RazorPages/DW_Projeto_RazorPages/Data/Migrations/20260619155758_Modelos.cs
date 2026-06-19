@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DW_Projeto_RazorPages.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Models : Migration
+    public partial class Modelos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
