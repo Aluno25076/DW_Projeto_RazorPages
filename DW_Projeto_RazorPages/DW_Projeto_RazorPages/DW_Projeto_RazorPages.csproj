@@ -4,10 +4,11 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-DW_Projeto_RazorPages-9748c05c-74dc-47ce-ae26-76c1564621fb</UserSecretsId>
+    <UserSecretsId>aspnet-DW_Projeto_RazorPages-b003da01-f9c9-483f-b9fa-bb82f34fa192</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="10.0.9" />

@@ -1,0 +1,40 @@
+@page "/subscriptions"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Microsoft.EntityFrameworkCore
+@using DW_Projeto_RazorPages.Data.Model
+@using DW_Projeto_RazorPages.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<DW_Projeto_RazorPages.Data.ApplicationDbContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="subscriptions/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Subscription">
+    <PropertyColumn Property="subscription => subscription.Fee" />
+    <PropertyColumn Property="subscription => subscription.FeeAux" />
+    <PropertyColumn Property="subscription => subscription.Program" />
+    <PropertyColumn Property="subscription => subscription.MembersList" />
+
+    <TemplateColumn Context="subscription">
+        <a href="@($"subscriptions/edit?id={subscription.Id}")">Edit</a> |
+        <a href="@($"subscriptions/details?id={subscription.Id}")">Details</a> |
+        <a href="@($"subscriptions/delete?id={subscription.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private ApplicationDbContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
