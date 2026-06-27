@@ -12,25 +12,19 @@ namespace DW_Projeto_RazorPages.Data.Model
     /// </summary>
     public class Member : MyUser
     {
-        /// <summary>
-        /// Identificador atribuido para cada membro, para o identificar de forma unica 
-        /// </summary>
-        public int MemberId { get; set; }
+        // Número de sócio do membro no clube
+        [Display(Name = "Número de Sócio")]
+        public int? MemberId { get; set; }
 
-        /// <summary>
-        /// Data e hora da matricula do Membro
-        /// </summary>
-        [Required(ErrorMessage = "O {0} é de preenchimento obrigatorio!")]
-        [Display(Name = "Data de nascimento")]
-        [DataType(DataType.Date)]
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+        // Data de registo do membro no clube (preenchida automaticamente com timestamp)
+        [Display(Name = "Data de Registo")]
+        [DataType(DataType.DateTime)]
+        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
 
+        // Relação de navegação: subscrições do membro (tabela intermédia Memb_Subsc)
+        public ICollection<MemberSubscription> MemberSubscriptions { get; set; } = new List<MemberSubscription>();
 
-        /// <summary>
-        /// Subscrição do qual o membro está incrito
-        /// </summary>
-        [ForeignKey(nameof(Subscribed))]
-        [Display(Name = "Subcrito")]
-        public string SubscribedFK { get; set; }
+        // Relação de navegação: jogos (matches) em que o membro participou
+        public ICollection<MatchParticipant> MatchParticipants { get; set; } = new List<MatchParticipant>();
     }
 }

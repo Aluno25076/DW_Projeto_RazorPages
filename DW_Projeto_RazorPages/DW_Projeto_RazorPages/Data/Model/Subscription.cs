@@ -5,54 +5,44 @@ using Microsoft.EntityFrameworkCore;
 namespace DW_Projeto_RazorPages.Data.Model
 {
     /// <summary>
-    /// Dados das subscrições/planos do clube de tenis
+    /// Enumerado que representa a duração de uma subscrição do clube.
+    /// </summary>
+    public enum SubscriptionDuration
+    {
+       
+        Monthly,
+        Quarterly,
+        SemiAnnual,
+        Annual
+    }
+
+    /// <summary>
+    /// Representa um tipo de subscrição / plano disponível no clube de ténis.
+    /// Equivalente à tabela "Subscription" na base de dados.
     /// </summary>
     public class Subscription
     {
-        /// <summary>
-        /// Chave primaria (PK)
-        /// </summary>
+        // Identificador único da subscrição (chave primária)
         [Key]
         public int Id { get; set; }
 
-
-        /// <summary>
-        /// Pagamento da subcrição / taxa da subscrição
-        /// </summary>
-        [Precision(9,2)]
+        // Valor da quota da subscrição (obrigatório, precisão 8 dígitos com 2 decimais)
+        [Required(ErrorMessage = "O valor da quota é obrigatório.")]
+        [Column(TypeName = "decimal(8,2)")]
+        [Display(Name = "Quota (€)")]
+        [DataType(DataType.Currency)]
         public decimal Fee { get; set; }
 
-        /// <summary>
-        /// atributo auxiliar para a taxa, para garantir 
-        /// que o pagamento possa ser guardado como uma moeda padrão
-        /// </summary>
-        [NotMapped] 
-        [Required(ErrorMessage = "A {0} é obrigatória")] 
-        [Display(Name = "Taxa")] 
-        [StringLength(10)]
-        [RegularExpression("[0-9]{1,7}([,.][0-9]{1,2})?",
-           ErrorMessage = "A {0} deve ser um número com até 2 casas decimais")] 
-        public string FeeAux { get; set; } = "";
+        // Programa / descrição da subscrição (ex: "Ténis Sénior", "Ténis Jovem")
+        [Display(Name = "Programa")]
+        public string? Program { get; set; }
 
-        /// <summary>
-        /// Descrição do Programa da subscrição
-        /// </summary>
-        [StringLength(300)]
-        public string Program { get; set; } = "";
+        // Duração da subscrição (obrigatório)
+        [Required(ErrorMessage = "A duração é obrigatória.")]
+        [Display(Name = "Duração")]
+        public SubscriptionDuration Duration { get; set; }
 
-        /// <summary>
-        /// Tipo de Duração da subscrição
-        /// </summary>
-        public enum Duration
-        {
-            Weekly,
-            Monthly,
-            Yearly
-        }
-
-        /// <summary>
-        /// Lista de Membros inscritos no plano/subscrição
-        /// </summary>
-        public ICollection<Member> MembersList { get; set; } = [];
+        // Relação de navegação: membros associados a esta subscrição (tabela intermédia)
+        public ICollection<MemberSubscription> MemberSubscriptions { get; set; } = new List<MemberSubscription>();
     }
 }

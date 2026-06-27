@@ -13,29 +13,30 @@ namespace DW_Projeto_RazorPages.Data.Model
                 [Key]
                 public int Id { get; set; }
 
-   
-   
-
-            // Dimensões do campo (máximo de 9 caracteres, com máscara, exemplo: "64x32" em metros)
-            [Required(ErrorMessage = "As dimensões do campo são obrigatórias.")]
-            [StringLength(9, ErrorMessage = "As dimensões não podem exceder 9 caracteres.")]
-            [Display(Name = "Dimensões")]
-            public string Size { get; set; } = string.Empty;
-
-            // Número  do campo no clube 
-            [Display(Name = "Número do Campo")]
-            public int? Number { get; set; }
-
-            // Tipo de superfície do campo 
-            [Required(ErrorMessage = "O tipo de campo é obrigatório.")]
-            [Display(Name = "Tipo de superfície e cobertura")]
-            public FieldType Type { get; set; }
 
 
-            /// <summary>
-            /// atributo para demonstrar o tipo de campo
-            /// </summary>
-            public enum FieldType
+        // Dimensões do campo (máximo 9 caracteres, com máscara, ex: "64x32" em metros)
+        [Required(ErrorMessage = "As dimensões do campo são obrigatórias.")]
+        [StringLength(9, ErrorMessage = "As dimensões não podem exceder 9 caracteres.")]
+        [Display(Name = "Dimensões")]
+        public string Size { get; set; } = string.Empty;
+
+        // Número identificador do campo no clube (ex: Campo 1, Campo 2...)
+        [Display(Name = "Número do Campo")]
+        public int? Number { get; set; }
+
+        // Tipo de superfície do campo (obrigatório)
+        [Required(ErrorMessage = "O tipo de campo é obrigatório.")]
+        [Display(Name = "Tipo de Superfície")]
+        public FieldType Type { get; set; }
+
+        // Relação de navegação: jogos realizados neste campo
+        public ICollection<Match> Matches { get; set; } = new List<Match>();
+
+        /// <summary>
+        /// atributo para demonstrar o tipo de campo
+        /// </summary>
+        public enum FieldType
         {
             // Piso de terra batida
             Clay,
