@@ -14,10 +14,15 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Subscription.Name" class="control-label"></label>
+                <input asp-for="Subscription.Name" class="form-control" />
+                <span asp-validation-for="Subscription.Name" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
                 <label asp-for="Subscription.Fee" class="control-label"></label>
                 <input asp-for="Subscription.Fee" class="form-control" />
                 <span asp-validation-for="Subscription.Fee" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Subscription.FeeAux" class="control-label"></label>
@@ -29,11 +34,11 @@
                 <input asp-for="Subscription.Program" class="form-control" />
                 <span asp-validation-for="Subscription.Program" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="Subscription.MembersList" class="control-label"></label>
                 <input asp-for="Subscription.MembersList" class="form-control" />
                 <span asp-validation-for="Subscription.MembersList" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

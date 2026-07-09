@@ -1,8 +1,9 @@
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.MemberPages;
 
@@ -31,6 +32,7 @@ public class EditModel : PageModel
             return NotFound();
         }
         Member = member;
+        ViewData["SubscriptionFl"] = new SelectList(_context.Subscriptions, "Id", "Name");
         return Page();
     }
 

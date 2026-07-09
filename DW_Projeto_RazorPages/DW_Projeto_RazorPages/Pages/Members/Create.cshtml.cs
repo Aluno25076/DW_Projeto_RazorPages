@@ -1,8 +1,10 @@
+using System.Globalization;
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.MemberPages;
 
@@ -17,6 +19,7 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name");
         return Page();
     }
 
@@ -28,11 +31,18 @@ public class CreateModel : PageModel
     {
         if (!ModelState.IsValid)
         {
+            ViewData["SubscriptionsFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name", Member.SubscribedFK);
             return Page();
         }
 
-        _context.Members.Add(Member);
-        await _context.SaveChangesAsync();
+        try
+        {
+            _context.Members.Add(Member);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception ex) { 
+        
+        }
 
         return RedirectToPage("./Index");
     }

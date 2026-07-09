@@ -1,8 +1,9 @@
+using System.Globalization;
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.SubscriptionPages;
 
@@ -30,6 +31,10 @@ public class CreateModel : PageModel
         {
             return Page();
         }
+
+        // atribuir o valor auxiliar da taxa ao atributo taxa de subscrição,
+        // convertendo de string para decimal
+        Subscription.Fee = Convert.ToDecimal(Subscription.FeeAux.Replace('.', ','), new CultureInfo("pt-PT"));
 
         _context.Subscriptions.Add(Subscription);
         await _context.SaveChangesAsync();

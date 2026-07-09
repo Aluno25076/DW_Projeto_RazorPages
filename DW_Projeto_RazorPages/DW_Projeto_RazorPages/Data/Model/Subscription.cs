@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DW_Projeto_RazorPages.Data.Model
 {
     /// <summary>
-    /// Dados das subscrições/planos do clube de tenis
+    /// Dados dos modelos de subscrições/planos do clube de tenis
     /// </summary>
     public class Subscription
     {
@@ -14,6 +14,13 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [Key]
         public int Id { get; set; }
+
+        /// <summary>
+        /// Nome do modelo de subscrição
+        /// </summary>
+        [Required(ErrorMessage = "A {0} é obrigatória")]
+        [StringLength(300)]
+        public string Name { get; set; }
 
 
         /// <summary>
@@ -35,7 +42,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         public string FeeAux { get; set; } = "";
 
         /// <summary>
-        /// Descrição do Programa da subscrição
+        /// Descrição do Programa do modelo de subscrição
         /// </summary>
         [StringLength(300)]
         public string Program { get; set; } = "";
