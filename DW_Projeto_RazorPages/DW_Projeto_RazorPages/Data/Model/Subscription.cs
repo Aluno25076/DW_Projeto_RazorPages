@@ -18,7 +18,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [Required(ErrorMessage = "A {0} é obrigatória")]
         [StringLength(300)]
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
 
 
         /// <summary>
