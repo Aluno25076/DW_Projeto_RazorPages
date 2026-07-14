@@ -58,6 +58,6 @@ namespace DW_Projeto_RazorPages.Data.Model
         }
 
         // Relação de navegação: membros associados a esta subscrição (tabela intermédia)
-        public ICollection<Subscribed> Subscribed { get; set; } = new List<Subscribed>();
+        public ICollection<Subscribed> Subscribers { get; set; } = new List<Subscribed>();
     }
 }

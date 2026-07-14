@@ -29,11 +29,10 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// <summary>
         /// Subscrição do qual o membro está incrito
         /// </summary>
-        //[ForeignKey(nameof(Subscribed))]
-        //[Display(Name = "Subcrito")]
-        //public string SubscribedFK { get; set; }
+        [ForeignKey(nameof(Subscribed))]
+        [Display(Name = "Subcrito")]
+        public string SubscribedFK { get; set; }
 
-        // Relação de navegação: subscrições do membro (tabela intermédia Memb_Subsc)
-        public ICollection<Subscribed> Subscribed { get; set; } = new List<Subscribed>();
+        public ICollection<MatchParticipant> Matches { get; set; } = new List<MatchParticipant>();
     }
 }
