@@ -9,9 +9,7 @@ namespace DW_Projeto_RazorPages.Data.Model
     /// </summary>
     public class Subscription
     {
-        /// <summary>
-        /// Chave primaria (PK)
-        /// </summary>
+        // Identificador único da subscrição (chave primária)
         [Key]
         public int Id { get; set; }
 
@@ -47,19 +45,12 @@ namespace DW_Projeto_RazorPages.Data.Model
         [StringLength(300)]
         public string Program { get; set; } = "";
 
-        /// <summary>
-        /// Tipo de Duração da subscrição
-        /// </summary>
-        public enum Duration
-        {
-            Weekly,
-            Monthly,
-            Yearly
-        }
+        // Duração da subscrição (obrigatório)
+        [Required(ErrorMessage = "A duração é obrigatória.")]
+        [Display(Name = "Duração")]
+        public SubscriptionDuration Duration { get; set; }
 
-        /// <summary>
-        /// Lista de Membros inscritos no plano/subscrição
-        /// </summary>
-        public ICollection<Member> MembersList { get; set; } = [];
+        // Relação de navegação: membros associados a esta subscrição (tabela intermédia)
+        public ICollection<MemberSubscription> MemberSubscriptions { get; set; } = new List<MemberSubscription>();
     }
 }

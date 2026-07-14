@@ -19,4 +19,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Fields\" />
+    <Folder Include="Pages\Matches\" />
+    <Folder Include="Pages\Members\" />
+  </ItemGroup>
+
 </Project>
