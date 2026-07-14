@@ -31,7 +31,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [ForeignKey(nameof(Subscribed))]
         [Display(Name = "Subcrito")]
-        public string SubscribedFK { get; set; }
+        public string SubscribedFK { get; set; } = null!;
 
         public ICollection<MatchParticipant> Matches { get; set; } = new List<MatchParticipant>();
     }
