@@ -19,7 +19,7 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
-        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name");
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(s => s.Name), "Id", "Name");
         return Page();
     }
 
@@ -31,7 +31,7 @@ public class CreateModel : PageModel
     {
         if (!ModelState.IsValid)
         {
-            ViewData["SubscriptionsFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name", Member.SubscribedFK);
+            ViewData["SubscriptionsFK"] = new SelectList(_context.Subscriptions.OrderBy(s => s.Name), "Id", "Name", Member.SubscribedFK);
             return Page();
         }
 
@@ -40,8 +40,9 @@ public class CreateModel : PageModel
             _context.Members.Add(Member);
             await _context.SaveChangesAsync();
         }
-        catch (Exception ex) { 
-        
+        catch (Exception) {
+            //TODO
+            throw;
         }
 
         return RedirectToPage("./Index");
