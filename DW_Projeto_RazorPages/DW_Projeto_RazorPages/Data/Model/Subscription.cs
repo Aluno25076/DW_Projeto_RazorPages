@@ -5,20 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DW_Projeto_RazorPages.Data.Model
 {
     /// <summary>
-    /// Enumerado que representa a duração de uma subscrição do clube.
-    /// </summary>
-    public enum SubscriptionDuration
-    {
-       
-        Monthly,
-        Quarterly,
-        SemiAnnual,
-        Annual
-    }
-
-    /// <summary>
-    /// Representa um tipo de subscrição / plano disponível no clube de ténis.
-    /// Equivalente à tabela "Subscription" na base de dados.
+    /// Dados dos modelos de subscrições/planos do clube de tenis
     /// </summary>
     public class Subscription
     {
@@ -26,16 +13,37 @@ namespace DW_Projeto_RazorPages.Data.Model
         [Key]
         public int Id { get; set; }
 
-        // Valor da quota da subscrição (obrigatório, precisão 8 dígitos com 2 decimais)
-        [Required(ErrorMessage = "O valor da quota é obrigatório.")]
-        [Column(TypeName = "decimal(8,2)")]
-        [Display(Name = "Quota (€)")]
-        [DataType(DataType.Currency)]
+        /// <summary>
+        /// Nome do modelo de subscrição
+        /// </summary>
+        [Required(ErrorMessage = "A {0} é obrigatória")]
+        [StringLength(300)]
+        public string Name { get; set; }
+
+
+        /// <summary>
+        /// Pagamento da subcrição / taxa da subscrição
+        /// </summary>
+        [Precision(9,2)]
         public decimal Fee { get; set; }
 
-        // Programa / descrição da subscrição (ex: "Ténis Sénior", "Ténis Jovem")
-        [Display(Name = "Programa")]
-        public string? Program { get; set; }
+        /// <summary>
+        /// atributo auxiliar para a taxa, para garantir 
+        /// que o pagamento possa ser guardado como uma moeda padrão
+        /// </summary>
+        [NotMapped] 
+        [Required(ErrorMessage = "A {0} é obrigatória")] 
+        [Display(Name = "Taxa")] 
+        [StringLength(10)]
+        [RegularExpression("[0-9]{1,7}([,.][0-9]{1,2})?",
+           ErrorMessage = "A {0} deve ser um número com até 2 casas decimais")] 
+        public string FeeAux { get; set; } = "";
+
+        /// <summary>
+        /// Descrição do Programa do modelo de subscrição
+        /// </summary>
+        [StringLength(300)]
+        public string Program { get; set; } = "";
 
         // Duração da subscrição (obrigatório)
         [Required(ErrorMessage = "A duração é obrigatória.")]

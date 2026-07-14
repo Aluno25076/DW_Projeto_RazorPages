@@ -28,6 +28,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatorio!")]
         [Display(Name = "Data de nascimento")]
+        [DataType(DataType.Date)]
         public DateOnly BirthDate { get; set; }
 
         /// <summary>
