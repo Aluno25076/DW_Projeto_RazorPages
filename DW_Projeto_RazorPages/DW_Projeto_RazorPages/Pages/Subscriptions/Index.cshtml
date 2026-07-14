@@ -26,7 +26,7 @@
                 @Html.DisplayNameFor(model => model.Subscription[0].Program)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Subscription[0].MembersList)
+                @Html.DisplayNameFor(model => model.Subscription[0].Subscribed)
             </th>
             <th></th>
         </tr>
@@ -47,7 +47,7 @@
                 @Html.DisplayFor(model => item.Program)
             </td>
             <td>
-                @Html.DisplayFor(model => item.MembersList)
+                    @Html.DisplayFor(model => item.Subscribed)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

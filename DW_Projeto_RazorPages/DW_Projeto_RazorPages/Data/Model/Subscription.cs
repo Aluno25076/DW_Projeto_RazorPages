@@ -33,7 +33,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [NotMapped] 
         [Required(ErrorMessage = "A {0} é obrigatória")] 
-        [Display(Name = "Taxa")] 
+        [Display(Name = "Quota")] 
         [StringLength(10)]
         [RegularExpression("[0-9]{1,7}([,.][0-9]{1,2})?",
            ErrorMessage = "A {0} deve ser um número com até 2 casas decimais")] 
@@ -45,12 +45,19 @@ namespace DW_Projeto_RazorPages.Data.Model
         [StringLength(300)]
         public string Program { get; set; } = "";
 
-        // Duração da subscrição (obrigatório)
-        [Required(ErrorMessage = "A duração é obrigatória.")]
-        [Display(Name = "Duração")]
-        public SubscriptionDuration Duration { get; set; }
+        /// <summary>
+        /// Tipo de Duração da subscrição
+        /// </summary>
+        public enum Duration
+        {
+            Weekly,
+            Monthly,
+            Quarterly,
+            Semesterly,
+            Yearly
+        }
 
         // Relação de navegação: membros associados a esta subscrição (tabela intermédia)
-        public ICollection<MemberSubscription> MemberSubscriptions { get; set; } = new List<MemberSubscription>();
+        public ICollection<Subscribed> Subscribed { get; set; } = new List<Subscribed>();
     }
 }
