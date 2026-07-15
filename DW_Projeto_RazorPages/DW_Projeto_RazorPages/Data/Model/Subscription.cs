@@ -43,7 +43,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Descrição do Programa do modelo de subscrição
         /// </summary>
         [StringLength(300)]
-        public string Program { get; set; } = "";
+        public string SubscriptProgram { get; set; } = "";
 
         /// <summary>
         /// Tipo de Duração da subscrição
