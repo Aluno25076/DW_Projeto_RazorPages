@@ -43,7 +43,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// atributo para funcionar como FK entre a tabela dos MyUser
         /// e a tabela da Autenticação
         /// </summary>
-        //[StringLength(40)]
-        //public string UserID { get; set; } = "";
+        [StringLength(40)]
+        public string UserID { get; set; } = "";
     }
 }
