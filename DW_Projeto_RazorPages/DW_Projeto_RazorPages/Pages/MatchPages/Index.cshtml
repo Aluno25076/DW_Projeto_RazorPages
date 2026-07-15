@@ -1,0 +1,54 @@
+@page
+@model DW_Projeto_RazorPages.Pages.MatchPages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].Day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].FieldId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].Field)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].MatchParticipants)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Match) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Day)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FieldId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Field)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.MatchParticipants)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

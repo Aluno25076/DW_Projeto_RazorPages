@@ -1,0 +1,45 @@
+@page
+@model DW_Projeto_RazorPages.Pages.MatchPages.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DW_Projeto_RazorPages.Data.Model.Match</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Match.Day)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Match.Day)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Match.FieldId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Match.FieldId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Match.Field)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Match.Field)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Match.MatchParticipants)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Match.MatchParticipants)
+        </dd>
+    </dl>
+    <form method="post">
+        <input type="hidden" asp-for="Match.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
