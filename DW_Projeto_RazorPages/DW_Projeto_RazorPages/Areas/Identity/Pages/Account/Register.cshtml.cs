@@ -4,20 +4,24 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Areas.Identity.Pages.Account;
 
@@ -30,18 +34,22 @@ public class RegisterModel : PageModel
     private readonly ILogger<RegisterModel> _logger;
     private readonly IEmailSender _emailSender;
 
+    private readonly ApplicationDbContext _context;
+
     public RegisterModel(
         UserManager<ApplicationUser> userManager,
         IUserStore<ApplicationUser> userStore,
         SignInManager<ApplicationUser> signInManager,
         ILogger<RegisterModel> logger,
-        IEmailSender emailSender)
+        IEmailSender emailSender,
+        ApplicationDbContext context)
     {
         _userManager = userManager;
         _userStore = userStore;
         _emailStore = GetEmailStore();
         _signInManager = signInManager;
         _logger = logger;
+        _context = context;
         _emailSender = emailSender;
     }
 
@@ -74,7 +82,7 @@ public class RegisterModel : PageModel
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "o {0} é de preenchimento obrigatório")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; } = default!;
@@ -95,15 +103,23 @@ public class RegisterModel : PageModel
         /// </summary>
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "As passwords são diferentes, tente novamente.")]
         public string? ConfirmPassword { get; set; }
+
+        /// <summary>
+        /// Recolher os dados pessoais do novo utilizador, neste caso o Membro do clube
+        /// </summary>
+        public Member Member { get; set; }
     }
 
 
     public async Task OnGetAsync(string? returnUrl = null)
     {
         ReturnUrl = returnUrl;
-        ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+        //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+        // procurar os dados das Subscrições
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name");
     }
 
     public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
@@ -122,7 +138,10 @@ public class RegisterModel : PageModel
             {
                 _logger.LogInformation("User created a new account with password.");
 
+                // Atribui ao 'Membro' o ID da autenticação
                 var userId = await _userManager.GetUserIdAsync(user);
+                Input.Member.UserID = userId;
+
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
@@ -131,7 +150,7 @@ public class RegisterModel : PageModel
                     values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                     protocol: Request.Scheme)!;
 
-                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                await _emailSender.SendEmailAsync(Input.Email, "Por favor, confirma o seu email.",
                     $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                 if (_userManager.Options.SignIn.RequireConfirmedAccount)
@@ -151,6 +170,10 @@ public class RegisterModel : PageModel
         }
 
         // If we got this far, something failed, redisplay form
+
+        // procurar os dados dos Planos de Subscrição
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name");
+
         return Page();
     }
 

@@ -31,7 +31,6 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Criar Conta</button>
-       @*
         </div>
         <div class="col-md-6">
             <div class="form-floating mb-3">
@@ -49,18 +48,13 @@
                 <label asp-for="Input.Member.CellPhone"></label>
                 <span asp-validation-for="Input.Member.CellPhone" class="text-danger"></span>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Member.TuitionFeeAux" class="form-control" autocomplete="username" aria-required="true" />
-                <label asp-for="Input.Member.TuitionFeeAux"></label>
-                <span asp-validation-for="Input.Member.TuitionFeeAux" class="text-danger"></span>
-            </div>
             <div class="form-group">
-                <label asp-for="Input.Member.SubscriptionFK" class="control-label"></label>
-                <select asp-for="Input.Member.SubscriptionFK" class="form-control" asp-items="ViewBag.SubscriptionFK">
+                <label asp-for="Input.Member.SubscribedFK" class="control-label"></label>
+                <select asp-for="Input.Member.SubscribedFK" class="form-control" asp-items="ViewBag.SubscribedFK">
                     <option value="">-- Selecione o Plano de Subscrição --</option>
                 </select>
             </div>
-            *@
+
         </div>
     </div>
     <div class="row">
