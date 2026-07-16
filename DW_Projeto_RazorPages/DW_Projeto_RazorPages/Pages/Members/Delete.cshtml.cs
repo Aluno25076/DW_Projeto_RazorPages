@@ -25,7 +25,7 @@ public class DeleteModel : PageModel
             return NotFound();
         }
 
-        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberId == memberid);
+        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberNumber == memberid);
         if (member is null)
         {
             return NotFound();

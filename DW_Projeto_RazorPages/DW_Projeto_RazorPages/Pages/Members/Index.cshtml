@@ -56,9 +56,9 @@
                 @Html.DisplayFor(model => item.CellPhone)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.MemberId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.MemberId">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.MemberId">Delete</a>
+                    <a asp-page="./Edit" asp-route-id="@item.MemberNumber">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.MemberNumber">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.MemberNumber">Delete</a>
             </td>
         </tr>
 }

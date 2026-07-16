@@ -147,7 +147,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
             var fld = Array.Empty<Field>();
             if (!dbContext.Fields.Any())
             {
-                ucs = [
+                fld = [
                     new Field{},
                     new Field{},
                     new Field{},
