@@ -7,7 +7,7 @@ namespace DW_Projeto_RazorPages.Data.Model
     /// Classe para representar os funcionários do clube
     ///  que em torno vão herdar de utilizadores
     /// </summary>
-    public class Employee
+    public class Employee : MyUser
     {
        
             // número de funcionário interno do clube

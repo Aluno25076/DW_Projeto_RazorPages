@@ -20,5 +20,7 @@ namespace DW_Projeto_RazorPages.Data
         public DbSet<Match> Matches { get; set; }
         // Tabela intermédia: participantes em cada jogo
         public DbSet<MatchParticipant> MatchParticipants { get; set; }
+        // Tabela dos funcionarios
+        public DbSet<Employee> Employees { get; set; }
     }
 }
