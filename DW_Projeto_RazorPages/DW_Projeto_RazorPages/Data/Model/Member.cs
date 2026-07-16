@@ -29,9 +29,9 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// <summary>
         /// Subscrição do qual o membro está incrito
         /// </summary>
-        [ForeignKey(nameof(Subscribed))]
+        [ForeignKey(nameof(Subscription))]
         [Display(Name = "Subcrito")]
-        public string SubscribedFK { get; set; } = null!;
+        public string SubscriptionFK { get; set; } = null!;
 
         public ICollection<MatchParticipant> Matches { get; set; } = new List<MatchParticipant>();
     }

@@ -12,8 +12,6 @@ namespace DW_Projeto_RazorPages.Data
         public DbSet<Member> Members { get; set; }
         // Tabela das subscrições do clube
         public DbSet<Subscription> Subscriptions { get; set; }
-        // Tabela intermédia: Membros subscritos no plano de subscrição
-        public DbSet<Subscribed> Subscribers { get; set; }
         // Tabela de campos de ténis do clube
         public DbSet<Field> Fields { get; set; }
         // Tabela de jogos / partidas realizadas no clube

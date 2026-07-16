@@ -57,7 +57,9 @@ namespace DW_Projeto_RazorPages.Data.Model
             Yearly
         }
 
-        // Relação de navegação: membros associados a esta subscrição (tabela intermédia)
-        public ICollection<Subscribed> Subscribers { get; set; } = new List<Subscribed>();
+        /// <summary>
+        /// Lista de Membros que subscreveram ao plano de subscrição
+        /// </summary>
+        public ICollection<Member> Subscribers { get; set; } = [];
     }
 }
