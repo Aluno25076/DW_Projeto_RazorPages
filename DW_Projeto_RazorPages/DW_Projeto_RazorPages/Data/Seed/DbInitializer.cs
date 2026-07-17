@@ -79,9 +79,9 @@ namespace DW_Projeto_RazorPages.Data.Seed
 
                 var user3 = new IdentityUser
                 {
-                    UserName = "Membro00001",
-                    NormalizedUserName = "MEMBRO00001@IPT.PT",
-                    Email = "membro00001",
+                    UserName = "membro00001",
+                    NormalizedUserName = "MEMBRO00001",
+                    Email = "membro00001@ipt.pt",
                     NormalizedEmail = "MEMBRO00001@IPT.PT",
                     EmailConfirmed = true,
                     SecurityStamp = "TW49PF6SBW7IU4M344XNLT4NN5RO4GRU",
@@ -108,16 +108,16 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 membr = [
                     new Member{ Name="Mário Lopes", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       SubscriptionFK= subscripts[0].Id, RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=1,
-                       UserID=users[2].Id},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=1,
+                       UserID = users[2].Id},
                     new Member{ Name="Joana Gomes", BirthDate=DateOnly.Parse("2000-12-16"),CellPhone="913456789" ,
-                       SubscriptionFK= subscripts[0].Id, RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
                     new Member{ Name="João Silva", BirthDate=DateOnly.Parse("1999-12-31"),CellPhone="92345687" ,
-                       SubscriptionFK= subscripts[0].Id, RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=3},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=3},
                     new Member{ Name="Maria Santos", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="9612347" ,
-                       SubscriptionFK= subscripts[1].Id, RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
+                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
                     new Member{ Name="Ana Costa", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       SubscriptionFK= subscripts[1].Id, RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=5},
+                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=5},
         ];
                 await dbContext.Members.AddRangeAsync(membr);
                 haAdicao = true;
