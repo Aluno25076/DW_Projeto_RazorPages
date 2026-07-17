@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DW_Projeto_RazorPages.Data.Model
 {
@@ -15,7 +16,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// <summary>
         /// Identificador atribuido para cada membro, para o identificar de forma unica 
         /// </summary>
-        public int MemberId { get; set; }
+        public int MemberNumber { get; set; }
 
         /// <summary>
         /// Data e hora da matricula do Membro
@@ -29,9 +30,11 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// <summary>
         /// Subscrição do qual o membro está incrito
         /// </summary>
-        [ForeignKey(nameof(Subscribed))]
+        [ForeignKey(nameof(Subscription))]
         [Display(Name = "Subcrito")]
-        public string SubscribedFK { get; set; } = null!;
+        public int SubscriptionFK { get; set; }
+        [ValidateNever]
+        public Subscription Subscription { get; set; } = null!;
 
         public ICollection<MatchParticipant> Matches { get; set; } = new List<MatchParticipant>();
     }

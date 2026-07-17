@@ -4,6 +4,7 @@ using DW_Projeto_RazorPages.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DW_Projeto_RazorPages.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260716154653_MemberSubscriptionRelationFix")]
+    partial class MemberSubscriptionRelationFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -376,10 +379,14 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SubscriptionFK")
+                    b.Property<string>("SubscriptionFK")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SubscriptionId")
                         .HasColumnType("int");
 
-                    b.HasIndex("SubscriptionFK");
+                    b.HasIndex("SubscriptionId");
 
                     b.HasDiscriminator().HasValue("Member");
                 });
@@ -467,13 +474,9 @@ namespace DW_Projeto_RazorPages.Data.Migrations
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Member", b =>
                 {
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", "Subscription")
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", null)
                         .WithMany("Subscribers")
-                        .HasForeignKey("SubscriptionFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subscription");
+                        .HasForeignKey("SubscriptionId");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Field", b =>

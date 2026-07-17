@@ -1,4 +1,5 @@
 using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Seed;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,8 +12,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>() // adiciona a 'ordem' para aplicar Roles
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+
+// configuração da utilização de 'cookies'
+builder.Services.AddSession(options => {
+    options.IdleTimeout = TimeSpan.FromSeconds(150);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
 
@@ -20,6 +30,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+    // Invocar o seed da BD
+    app.UseItToSeedSqlServer();
 }
 else
 {
@@ -31,6 +44,9 @@ else
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+// começar a usar, realmente, os 'cookies'
+app.UseSession();
 
 app.UseAuthorization();
 

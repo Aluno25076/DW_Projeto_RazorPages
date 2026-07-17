@@ -26,7 +26,7 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberId == memberid);
+        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberNumber == memberid);
         if (member is null)
         {
             return NotFound();
@@ -53,7 +53,7 @@ public class EditModel : PageModel
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!MemberExists(Member.MemberId))
+            if (!MemberExists(Member.MemberNumber))
             {
                 return NotFound();
             }
@@ -68,6 +68,6 @@ public class EditModel : PageModel
 
     private bool MemberExists(int memberid)
     {
-        return _context.Members.Any(e => e.MemberId == memberid);
+        return _context.Members.Any(e => e.MemberNumber == memberid);
     }
 }

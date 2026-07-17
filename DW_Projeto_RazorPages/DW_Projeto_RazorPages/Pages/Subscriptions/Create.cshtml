@@ -30,15 +30,15 @@
                 <span asp-validation-for="Subscription.FeeAux" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Subscription.Program" class="control-label"></label>
-                <input asp-for="Subscription.Program" class="form-control" />
-                <span asp-validation-for="Subscription.Program" class="text-danger"></span>
+                <label asp-for="Subscription.SubscriptProgram" class="control-label"></label>
+                <input asp-for="Subscription.SubscriptProgram" class="form-control" />
+                <span asp-validation-for="Subscription.SubscriptProgram" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Subscription.MembersList" class="control-label"></label>
-                <input asp-for="Subscription.MembersList" class="form-control" />
-                <span asp-validation-for="Subscription.MembersList" class="text-danger"></span>
-            </div>*@
+            <div class="form-group">
+                <label asp-for="Subscription.Subscribers" class="control-label"></label>
+                <input asp-for="Subscription.Subscribers" class="form-control" />
+                <span asp-validation-for="Subscription.Subscribers" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

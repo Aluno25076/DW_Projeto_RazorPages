@@ -4,6 +4,7 @@ using DW_Projeto_RazorPages.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DW_Projeto_RazorPages.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260715164132_SubscriptionProgram")]
+    partial class SubscriptionProgram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,6 +122,24 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("MyUser");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscribed", b =>
+                {
+                    b.Property<int>("MemberFK")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubscriptionFK")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MemberFK", "SubscriptionFK");
+
+                    b.HasIndex("SubscriptionFK");
+
+                    b.ToTable("Subscribers");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscription", b =>
@@ -350,36 +371,19 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Employee", b =>
-                {
-                    b.HasBaseType("DW_Projeto_RazorPages.Data.Model.MyUser");
-
-                    b.Property<int>("EmploymentStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FuncNum")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(8,2)");
-
-                    b.HasDiscriminator().HasValue("Employee");
-                });
-
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Member", b =>
                 {
                     b.HasBaseType("DW_Projeto_RazorPages.Data.Model.MyUser");
 
-                    b.Property<int>("MemberNumber")
+                    b.Property<int>("MemberId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SubscriptionFK")
-                        .HasColumnType("int");
-
-                    b.HasIndex("SubscriptionFK");
+                    b.Property<string>("SubscribedFK")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Member");
                 });
@@ -412,6 +416,25 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.Navigation("Match");
 
                     b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscribed", b =>
+                {
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", "Subscription")
+                        .WithMany("Subscribers")
+                        .HasForeignKey("SubscriptionFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
+
+                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -463,17 +486,6 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Member", b =>
-                {
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", "Subscription")
-                        .WithMany("Subscribers")
-                        .HasForeignKey("SubscriptionFK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Subscription");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Field", b =>

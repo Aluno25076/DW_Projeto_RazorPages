@@ -1,11 +1,13 @@
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.SubscriptionPages;
 
+[Authorize(Roles = "Trainer")]
 public class DeleteModel : PageModel
 {
     private readonly ApplicationDbContext _context;
