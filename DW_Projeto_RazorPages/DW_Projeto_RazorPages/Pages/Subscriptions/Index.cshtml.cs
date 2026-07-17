@@ -19,6 +19,11 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        Subscription = await _context.Subscriptions.ToListAsync();
+        /*
+       * SELECT * 
+       * FROM Courses c INNER JOIN Subscription s ON memb.SubscriptionFK = s.Id
+       *                INNER JOIN Members m ON memb.SubscriptionFK = m.Id
+       */
+        Subscription = await _context.Subscriptions.Include(s => s.Subscribers).ToListAsync();
     }
 }
