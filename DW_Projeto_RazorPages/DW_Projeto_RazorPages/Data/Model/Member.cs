@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DW_Projeto_RazorPages.Data.Model
 {
@@ -31,7 +32,9 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [ForeignKey(nameof(Subscription))]
         [Display(Name = "Subcrito")]
-        public string SubscriptionFK { get; set; } = null!;
+        public int SubscriptionFK { get; set; }
+        [ValidateNever]
+        public Subscription Subscription { get; set; } = null!;
 
         public ICollection<MatchParticipant> Matches { get; set; } = new List<MatchParticipant>();
     }
