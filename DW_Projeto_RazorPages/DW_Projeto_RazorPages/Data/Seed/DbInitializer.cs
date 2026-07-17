@@ -102,28 +102,26 @@ namespace DW_Projeto_RazorPages.Data.Seed
                 haAdicao = true;
             }
 
-            /* resolver o problema dos subscripts[0] com warning
             // Se não houver Membros, cria-os
             var membr = Array.Empty<Member>();
             if (!dbContext.Members.Any())
             {
                 membr = [
                     new Member{ Name="Mário Lopes", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       SubscriptionFK= subscripts[0], RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=1,
+                       SubscriptionFK= subscripts[0].Id, RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=1,
                        UserID=users[2].Id},
                     new Member{ Name="Joana Gomes", BirthDate=DateOnly.Parse("2000-12-16"),CellPhone="913456789" ,
-                       SubscriptionFK= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
+                       SubscriptionFK= subscripts[0].Id, RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
                     new Member{ Name="João Silva", BirthDate=DateOnly.Parse("1999-12-31"),CellPhone="92345687" ,
-                       SubscriptionFK= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=3},
+                       SubscriptionFK= subscripts[0].Id, RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=3},
                     new Member{ Name="Maria Santos", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="9612347" ,
-                       SubscriptionFK= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
+                       SubscriptionFK= subscripts[1].Id, RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
                     new Member{ Name="Ana Costa", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       SubscriptionFK= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=5},
+                       SubscriptionFK= subscripts[1].Id, RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=5},
         ];
                 await dbContext.Members.AddRangeAsync(membr);
                 haAdicao = true;
             }
-            */
 
 
 
