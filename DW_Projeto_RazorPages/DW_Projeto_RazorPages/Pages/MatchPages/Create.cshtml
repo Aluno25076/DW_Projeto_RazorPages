@@ -16,24 +16,18 @@
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Match.Day" class="control-label"></label>
-                <input asp-for="Match.Day" class="form-control" aria-required="true"/>
+                <input asp-for="Match.Day" class="form-control" aria-required="true" />
                 <span asp-validation-for="Match.Day" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Match.FieldId" class="control-label"></label>
-                <input asp-for="Match.FieldId" class="form-control" aria-required="true"/>
+                @* dropdown com os campos existentes, em vez de um input numérico *@
+                <select asp-for="Match.FieldId" class="form-control"
+                        asp-items="ViewBag.FieldId">
+                    <option value="">-- Escolha o campo --</option>
+                </select>
                 <span asp-validation-for="Match.FieldId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Match.Field" class="control-label"></label>
-                <input asp-for="Match.Field" class="form-control" />
-                <span asp-validation-for="Match.Field" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Match.MatchParticipants" class="control-label"></label>
-                <input asp-for="Match.MatchParticipants" class="form-control" />
-                <span asp-validation-for="Match.MatchParticipants" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -47,5 +41,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
