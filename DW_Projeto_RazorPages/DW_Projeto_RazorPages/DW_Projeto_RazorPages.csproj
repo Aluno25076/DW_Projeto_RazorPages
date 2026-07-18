@@ -23,10 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\EmployeePages\" />
+    <Folder Include="Pages\Employees\" />
     <Folder Include="Areas\Identity\Pages\Account\" />
-    <Folder Include="Pages\Fields\" />
-    <Folder Include="Pages\Matches\" />
     <Folder Include="Pages\Members\" />
   </ItemGroup>
 
