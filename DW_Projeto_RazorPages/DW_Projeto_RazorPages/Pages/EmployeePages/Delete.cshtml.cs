@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using DW_Projeto_RazorPages.Data.Model;
 using DW_Projeto_RazorPages.Data;
 
-namespace DW_Projeto_RazorPages.Pages.MemberPages;
+namespace DW_Projeto_RazorPages.Pages.EmployeePages;
 
 public class DeleteModel : PageModel
 {
@@ -16,40 +16,40 @@ public class DeleteModel : PageModel
     }
 
     [BindProperty]
-    public Member Member { get; set; } = default!;
+    public Employee Employee { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(int? memberid)
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (memberid is null)
+        if (id is null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberId == memberid);
-        if (member is null)
+        var employee = await _context.Employees.FirstOrDefaultAsync(m => m.Id == id);
+        if (employee is null)
         {
             return NotFound();
         }
         else
         {
-            Member = member;
+            Employee = employee;
         }
 
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(int? memberid)
+    public async Task<IActionResult> OnPostAsync(int? id)
     {
-        if (memberid is null)
+        if (id is null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FindAsync(memberid);
-        if (member != null)
+        var employee = await _context.Employees.FindAsync(id);
+        if (employee != null)
         {
-            Member = member;
-            _context.Members.Remove(Member);
+            Employee = employee;
+            _context.Employees.Remove(Employee);
             await _context.SaveChangesAsync();
         }
 

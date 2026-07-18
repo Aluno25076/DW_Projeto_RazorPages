@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using DW_Projeto_RazorPages.Data.Model;
 using DW_Projeto_RazorPages.Data;
 
-namespace DW_Projeto_RazorPages.Pages.MemberPages;
+namespace DW_Projeto_RazorPages.Pages.EmployeePages;
 
 public class EditModel : PageModel
 {
@@ -16,21 +16,21 @@ public class EditModel : PageModel
     }
 
     [BindProperty]
-    public Member Member { get; set; } = default!;
+    public Employee Employee { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(int? memberid)
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (memberid is null)
+        if (id is null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberId == memberid);
-        if (member is null)
+        var employee = await _context.Employees.FirstOrDefaultAsync(m => m.Id == id);
+        if (employee is null)
         {
             return NotFound();
         }
-        Member = member;
+        Employee = employee;
         return Page();
     }
 
@@ -43,7 +43,7 @@ public class EditModel : PageModel
             return Page();
         }
 
-        _context.Attach(Member).State = EntityState.Modified;
+        _context.Attach(Employee).State = EntityState.Modified;
 
         try
         {
@@ -51,7 +51,7 @@ public class EditModel : PageModel
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!MemberExists(Member.MemberId))
+            if (!EmployeeExists(Employee.Id))
             {
                 return NotFound();
             }
@@ -64,8 +64,8 @@ public class EditModel : PageModel
         return RedirectToPage("./Index");
     }
 
-    private bool MemberExists(int? memberid)
+    private bool EmployeeExists(int id)
     {
-        return _context.Members.Any(e => e.MemberId == memberid);
+        return _context.Employees.Any(e => e.Id == id);
     }
 }
