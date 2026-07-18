@@ -102,7 +102,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
                 haAdicao = true;
             }
 
-            // Se não houver Membros, cria-os
+            // Membros, criados
             var membr = Array.Empty<Member>();
             if (!dbContext.Members.Any())
             {
@@ -125,7 +125,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
 
 
 
-            // Se não houver Funcionarios, cria-os
+            //  Funcionarios, criados
             var trainers = Array.Empty<Employee>();
             if (!dbContext.Employees.Any())
             {
@@ -138,23 +138,31 @@ namespace DW_Projeto_RazorPages.Data.Seed
             }
 
 
-            //TODO
-            // Se não houver Campos, cria-os
+            ///Campos Criados
             var fld = Array.Empty<Field>();
             if (!dbContext.Fields.Any())
             {
                 fld = [
-                    new Field{},
-                    new Field{},
-                    new Field{},
-                    new Field{}
+                    new Field { Size = "23.77x8", Number = 1, Type = Field.FieldType.Clay },
+                    new Field { Size = "23.77x8", Number = 2, Type = Field.FieldType.HardCourt },
+                    new Field { Size = "23.77x10", Number = 3, Type = Field.FieldType.Indoor }
                 ];
                 await dbContext.Fields.AddRangeAsync(fld);
                 haAdicao = true;
             }
 
-            //TODO - Match
-
+            //Partidas criadas
+            if (!dbContext.Matches.Any() && fld.Length > 0)
+            {
+                var matches = new Match[] {
+                    new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(2)), Field = fld[0],
+                       Participants = [membr[0], membr[1]] },
+                    new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), Field = fld[2],
+                       Participants = [membr[3], membr[4]] }
+                };
+                await dbContext.Matches.AddRangeAsync(matches);
+                haAdicao = true;
+            }
 
             try
             {
