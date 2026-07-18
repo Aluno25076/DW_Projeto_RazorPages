@@ -1,0 +1,63 @@
+@page
+@model DW_Projeto_RazorPages.Pages.MemberPages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Member</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Member.MemberId" />
+            <div class="form-group">
+                <label asp-for="Member.RegistrationDate" class="control-label"></label>
+                <input asp-for="Member.RegistrationDate" class="form-control" />
+                <span asp-validation-for="Member.RegistrationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.MemberSubscriptions" class="control-label"></label>
+                <input asp-for="Member.MemberSubscriptions" class="form-control" />
+                <span asp-validation-for="Member.MemberSubscriptions" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Member.Id" class="control-label"></label>
+                <input asp-for="Member.Id" class="form-control" />
+                <span asp-validation-for="Member.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Member.Name" class="control-label"></label>
+                <input asp-for="Member.Name" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Member.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Member.BirthDate" class="control-label"></label>
+                <input asp-for="Member.BirthDate" class="form-control" aria-required="true"/>
+                <span asp-validation-for="Member.BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member.CellPhone" class="control-label"></label>
+                <input asp-for="Member.CellPhone" class="form-control" />
+                <span asp-validation-for="Member.CellPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

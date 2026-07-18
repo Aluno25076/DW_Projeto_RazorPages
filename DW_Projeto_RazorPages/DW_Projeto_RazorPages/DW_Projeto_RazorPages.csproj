@@ -17,9 +17,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\EmployeePages\" />
     <Folder Include="Areas\Identity\Pages\Account\" />
     <Folder Include="Pages\Fields\" />
     <Folder Include="Pages\Matches\" />

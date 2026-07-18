@@ -36,6 +36,9 @@ namespace DW_Projeto_RazorPages.Data.Model
         [ValidateNever]
         public Subscription Subscription { get; set; } = null!;
 
-        public ICollection<MatchParticipant> Matches { get; set; } = new List<MatchParticipant>();
+        /// <summary>
+        /// Lista de jogos em que o membro participa
+        /// </summary>
+        public ICollection<Match> Matches { get; set; } = [];
     }
 }
