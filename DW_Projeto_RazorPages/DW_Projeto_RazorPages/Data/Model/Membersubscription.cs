@@ -11,25 +11,35 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         public class MemberSubscription
         {
-            // Chave estrangeira para o membro (parte da chave primária composta)
+            /// <summary>
+            /// Chave estrangeira para o membro (parte da chave primária composta)
+            /// </summary>
             [Required]
             public int MemberId { get; set; }
 
-            // Chave estrangeira para a subscrição (parte da chave primária composta)
+            /// <summary>
+            /// Chave estrangeira para a subscrição (parte da chave primária composta)
+            /// </summary>
             [Required]
             public int SubscriptionId { get; set; }
 
-            // Data de expiração da subscrição do membro (obrigatória)
+            /// <summary>
+            /// Data de expiração da subscrição do membro (obrigatória)
+            /// </summary>
             [Required(ErrorMessage = "A data de expiração é obrigatória.")]
             [Display(Name = "Data de Expiração")]
             [DataType(DataType.Date)]
             public DateOnly ExpirationDate { get; set; }
 
-            // Propriedade de navegação para o membro
+            /// <summary>
+            /// Propriedade de navegação para o membro
+            /// </summary>
             [ForeignKey(nameof(MemberId))]
             public Member? Member { get; set; }
 
-            // Propriedade de navegação para a subscrição
+            /// <summary>
+            /// Propriedade de navegação para a subscrição
+            /// </summary>
             [ForeignKey(nameof(SubscriptionId))]
             public Subscription? Subscription { get; set; }
         }

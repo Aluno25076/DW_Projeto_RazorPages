@@ -1,8 +1,7 @@
 ﻿using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+
 
 
 
@@ -15,31 +14,48 @@ namespace DW_Projeto_RazorPages.Data
     /// </summary>
     public class ApplicationDbContext : IdentityDbContext
     {
-        // Construtor que recebe as opções de configuração do contexto
+        /// <summary>
+        /// Construtor que recebe as opções de configuração do contexto
+        /// </summary>
+        /// <param name="options"></param>
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-        // Tabela de utilizadores base (MyUser com herança TPH)
+        /// <summary>
+        /// Tabela de utilizadores base (MyUser com herança TPH)
+        /// </summary>
         public DbSet<MyUser> MyUsers { get; set; }
 
-        // Tabela de membros / sócios do clube
+        /// <summary>
+        /// Tabela de membros / sócios do clube
+        /// </summary>
         public DbSet<Member> Members { get; set; }
 
-        // Tabela de funcionários do clube
+        /// <summary>
+        /// Tabela de funcionários do clube
+        /// </summary>
         public DbSet<Employee> Employees { get; set; }
 
-        // Tabela de subscrições / planos disponíveis no clube
+        /// <summary>
+        /// Tabela de subscrições / planos disponíveis no clube
+        /// </summary>
         public DbSet<Subscription> Subscriptions { get; set; }
 
-        // Tabela intermédia: associação entre membros e subscrições
+        /// <summary>
+        /// Tabela intermédia: associação entre membros e subscrições
+        /// </summary>
         public DbSet<MemberSubscription> MemberSubscriptions { get; set; }
 
-        // Tabela de campos de ténis do clube
+        /// <summary>
+        /// Tabela de campos de ténis do clube
+        /// </summary>
         public DbSet<Field> Fields { get; set; }
 
-        // Tabela de jogos / partidas realizadas no clube
+        /// <summary>
+        /// Tabela de jogos / partidas realizadas no clube
+        /// </summary>
         public DbSet<Match> Matches { get; set; }
 
     
@@ -52,7 +68,7 @@ namespace DW_Projeto_RazorPages.Data
         {
             // Chama a configuração base do IdentityDbContext (obrigatório)
             base.OnModelCreating(modelBuilder);
-
+            
             // Configuração da herança TPH (Table Per Hierarchy) para MyUser
             // Todos os tipos derivados ficam na mesma tabela com um discriminador automático
             modelBuilder.Entity<MyUser>()
@@ -80,7 +96,7 @@ namespace DW_Projeto_RazorPages.Data
                 .OnDelete(DeleteBehavior.Cascade);
 
          
-
+            
           
 
        

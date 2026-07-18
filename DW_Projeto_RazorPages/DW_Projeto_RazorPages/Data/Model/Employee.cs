@@ -10,18 +10,24 @@ namespace DW_Projeto_RazorPages.Data.Model
     public class Employee : MyUser
     {
        
-            // número de funcionário interno do clube
+            /// <summary>
+            /// número de funcionário interno do clube
+            /// </summary>
             [Display(Name = "Número de Funcionário")]
             public int? FuncNum { get; set; }
 
-            // salário do funcionário 
+            /// <summary>
+            /// salário do funcionário 
+            /// </summary>
             [Required(ErrorMessage = "O funcionário precisa de ser pago.")]
             [Column(TypeName = "decimal(8,2)")]
             [Display(Name = "Salário")]
             [DataType(DataType.Currency)]
             public decimal Salary { get; set; }
 
-            // estado de emprego do funcionário 
+           /// <summary>
+           /// estado de emprego do funcionário 
+           /// </summary>
             [Required(ErrorMessage = "O estado de emprego é obrigatório.")]
             [Display(Name = "Estado de Emprego")]
             public EmploymentStatus EmploymentStatus { get; set; }
@@ -33,9 +39,13 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         public enum EmploymentStatus
         {
-            // Funcionário ativo
+           /// <summary>
+           /// Funcionário ativo
+           /// </summary>
             Active,
-            // Funcionário inativo / despedido
+           /// <summary>
+           /// Funcionário inativo / despedido
+           /// </summary>
             Inactive
         }
     }

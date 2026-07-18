@@ -39,7 +39,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         public string? CellPhone { get; set; }
 
         /// <summary>
-        /// atributo para funcionar como FK entre a tabela dos MyUser
+        /// atributo para funcionar como FK entre a tabela dos MyUser (comentádo por indecisão )
         /// e a tabela da Autenticação
         /// </summary>
         //[StringLength(40)]

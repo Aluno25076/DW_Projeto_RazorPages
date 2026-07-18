@@ -15,22 +15,30 @@ namespace DW_Projeto_RazorPages.Data.Model
 
 
 
-        // Dimensões do campo (máximo 9 caracteres, com máscara, ex: "64x32" em metros)
+        /// <summary>
+        /// Dimensões do campo (máximo 9 caracteres, com máscara, ex: "64x32" em metros)
+        /// </summary>
         [Required(ErrorMessage = "As dimensões do campo são obrigatórias.")]
         [StringLength(9, ErrorMessage = "As dimensões não podem exceder 9 caracteres.")]
         [Display(Name = "Dimensões")]
         public string Size { get; set; } = string.Empty;
 
-        // Número identificador do campo no clube (ex: Campo 1, Campo 2...)
+        /// <summary>
+        /// Número identificador do campo no clube (ex: Campo 1, Campo 2...)
+        /// </summary>
         [Display(Name = "Número do Campo")]
         public int? Number { get; set; }
 
-        // Tipo de superfície do campo (obrigatório)
+        /// <summary>
+        /// Tipo de superfície do campo (obrigatório)
+        /// </summary>
         [Required(ErrorMessage = "O tipo de campo é obrigatório.")]
         [Display(Name = "Tipo de Superfície")]
         public FieldType Type { get; set; }
 
-        // Relação de navegação: jogos realizados neste campo
+        /// <summary>
+        /// Relação de navegação: jogos realizados neste campo
+        /// </summary>
         public ICollection<Match> Matches { get; set; } = new List<Match>();
 
         /// <summary>
@@ -38,15 +46,25 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         public enum FieldType
         {
-            // Piso de terra batida
+            /// <summary>
+            /// Piso de terra batida
+            /// </summary>
             Clay,
-            // Piso de relva sintética
+            /// <summary>
+            /// Piso de relva sintética
+            /// </summary>
             SyntheticGrass,
-            // Piso de alcatrão 
+            /// <summary>
+            /// Piso de alcatrão 
+            /// </summary>
             HardCourt,
-            // Piso de relva natural
+            /// <summary>
+            /// Piso de relva natural
+            /// </summary>
             Grass,
-            // Campo coberto 
+            /// <summary>
+            /// Campo coberto 
+            /// </summary>
             Indoor
         }
     }

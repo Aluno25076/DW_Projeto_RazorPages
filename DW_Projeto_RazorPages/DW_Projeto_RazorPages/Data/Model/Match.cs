@@ -19,18 +19,24 @@ namespace DW_Projeto_RazorPages.Data.Model
 
 
 
-        // Data em que o jogo foi / será realizado
+        /// <summary>
+        /// Data em que o jogo foi / será realizado
+        /// </summary>
         [Required(ErrorMessage = "A data do jogo é obrigatória.")]
         [DataType(DataType.Date)]
         [Display(Name = "Data do Jogo")]
         public DateOnly Day { get; set; }
 
-        // Chave estrangeira para o campo onde o jogo se realiza
+        /// <summary>
+        /// Chave estrangeira para o campo onde o jogo se realiza
+        /// </summary>
         [Required(ErrorMessage = "O campo é obrigatório.")]
         [Display(Name = "Campo")]
         public int FieldId { get; set; }
 
-        // Propriedade de navegação para o campo de ténis
+        /// <summary>
+        /// Propriedade de navegação para o campo de ténis
+        /// </summary>
         [ForeignKey(nameof(FieldId))]
         public Field? Field { get; set; }
 
