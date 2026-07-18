@@ -18,6 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
+    <PackageReference Include="NuGet.Protocol" Version="7.6.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +26,6 @@
     <Folder Include="Areas\Identity\Pages\Account\" />
     <Folder Include="Pages\Fields\" />
     <Folder Include="Pages\Matches\" />
-    <Folder Include="Pages\Members\" />
   </ItemGroup>
 
 </Project>

@@ -44,5 +44,10 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Lista de participantes (Members) no jogo
         /// </summary>
         public ICollection<Member> Participants { get; set; } = [];
+
+        /// <summary>
+        /// Resultado do jogo (nulo enquanto o jogo não tiver acabado)
+        /// </summary>
+        public Result? Result { get; set; }
     }
 }

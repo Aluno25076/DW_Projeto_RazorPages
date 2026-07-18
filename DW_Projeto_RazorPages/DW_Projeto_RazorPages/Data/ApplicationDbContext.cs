@@ -16,9 +16,26 @@ namespace DW_Projeto_RazorPages.Data
         public DbSet<Field> Fields { get; set; }
         // Tabela de jogos / partidas realizadas no clube
         public DbSet<Match> Matches { get; set; }
-        // Tabela intermédia: participantes em cada jogo
-        public DbSet<MatchParticipant> MatchParticipants { get; set; }
         // Tabela dos funcionarios
         public DbSet<Employee> Employees { get; set; }
+        // Tabela de resultados dos jogos / partidas
+        public DbSet<Result> Results { get; set; }
+
+        /// <summary>
+        /// Configuração do modelo de dados usando a Fluent API
+        /// </summary>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // Chama a configuração base do IdentityDbContext (obrigatório)
+            base.OnModelCreating(modelBuilder);
+
+
+            // 1 jogo só pode ter 1 resultado, e cada resultado pertence a 1 jogo
+            modelBuilder.Entity<Result>()
+                .HasOne(r => r.Match)
+                .WithOne(m => m.Result)
+                .HasForeignKey<Result>(r => r.MatchFK);
+        }
+
     }
 }
