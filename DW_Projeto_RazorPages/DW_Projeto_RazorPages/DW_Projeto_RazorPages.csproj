@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-DW_Projeto_RazorPages-d16b2469-e91e-4921-8583-b5fc4aae5944</UserSecretsId>
+    <UserSecretsId>aspnet-DW_Projeto_RazorPages-6b425fda-836c-4075-829d-f6ebdb90bc2a</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +22,10 @@
 
   <ItemGroup>
     <Folder Include="Pages\EmployeePages\" />
+    <Folder Include="Areas\Identity\Pages\Account\" />
+    <Folder Include="Pages\Fields\" />
+    <Folder Include="Pages\Matches\" />
+    <Folder Include="Pages\Members\" />
   </ItemGroup>
 
 </Project>

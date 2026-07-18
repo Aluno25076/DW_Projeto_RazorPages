@@ -28,6 +28,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatorio!")]
         [Display(Name = "Data de nascimento")]
+        [DataType(DataType.Date)]
         public DateOnly BirthDate { get; set; }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// atributo para funcionar como FK entre a tabela dos MyUser (comentádo por indecisão )
         /// e a tabela da Autenticação
         /// </summary>
-        //[StringLength(40)]
-        //public string UserID { get; set; } = "";
+        [StringLength(40)]
+        public string UserID { get; set; } = "";
     }
 }

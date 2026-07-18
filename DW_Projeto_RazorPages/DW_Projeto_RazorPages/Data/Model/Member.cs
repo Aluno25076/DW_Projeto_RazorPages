@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DW_Projeto_RazorPages.Data.Model
 {
@@ -13,22 +14,27 @@ namespace DW_Projeto_RazorPages.Data.Model
     public class Member : MyUser
     {
         /// <summary>
-        /// Número de sócio do membro no clube
+        /// Identificador atribuido para cada membro, para o identificar de forma unica 
         /// </summary>
-        [Display(Name = "Número de Sócio")]
-        public int? MemberId { get; set; }
+        public int MemberNumber { get; set; }
 
         /// <summary>
-        /// Data de registo do membro no clube (preenchida automaticamente com timestamp)
+        /// Data e hora da matricula do Membro
         /// </summary>
-        [Display(Name = "Data de Registo")]
-        [DataType(DataType.DateTime)]
-        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
+        [Required(ErrorMessage = "O {0} é de preenchimento obrigatorio!")]
+        [Display(Name = "Data de nascimento")]
+        [DataType(DataType.Date)]
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+
 
         /// <summary>
-        /// Relação de navegação: subscrições do membro (tabela intermédia Memb_Subsc)
+        /// Subscrição do qual o membro está incrito
         /// </summary>
-        public ICollection<MemberSubscription> MemberSubscriptions { get; set; } = new List<MemberSubscription>();
+        [ForeignKey(nameof(Subscription))]
+        [Display(Name = "Subcrito")]
+        public int SubscriptionFK { get; set; }
+        [ValidateNever]
+        public Subscription Subscription { get; set; } = null!;
 
         /// <summary>
         /// Lista de jogos em que o membro participa

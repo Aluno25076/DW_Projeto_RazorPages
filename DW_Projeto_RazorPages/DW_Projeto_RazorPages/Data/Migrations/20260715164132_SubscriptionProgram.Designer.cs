@@ -12,18 +12,78 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DW_Projeto_RazorPages.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260617143420_SubscriptionIdFix")]
-    partial class SubscriptionIdFix
+    [Migration("20260715164132_SubscriptionProgram")]
+    partial class SubscriptionProgram
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.7")
+                .HasAnnotation("ProductVersion", "10.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Field", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fields");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Match", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateOnly>("Day")
+                        .HasColumnType("date");
+
+                    b.Property<int>("FieldId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FieldId");
+
+                    b.ToTable("Matches");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.MatchParticipant", b =>
+                {
+                    b.Property<int>("MemberFK")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MatchFK")
+                        .HasColumnType("int");
+
+                    b.HasKey("MemberFK", "MatchFK");
+
+                    b.HasIndex("MatchFK");
+
+                    b.ToTable("MatchParticipants");
+                });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.MyUser", b =>
                 {
@@ -49,6 +109,11 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
@@ -89,7 +154,12 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .HasPrecision(9, 2)
                         .HasColumnType("decimal(9,2)");
 
-                    b.Property<string>("Program")
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("SubscriptProgram")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
@@ -315,12 +385,37 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubscriptionId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("SubscriptionId");
-
                     b.HasDiscriminator().HasValue("Member");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Match", b =>
+                {
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Field", "Field")
+                        .WithMany("Matches")
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Field");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.MatchParticipant", b =>
+                {
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Match", "Match")
+                        .WithMany("MatchParticipants")
+                        .HasForeignKey("MatchFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Member", "Member")
+                        .WithMany("Matches")
+                        .HasForeignKey("MemberFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Match");
+
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscribed", b =>
@@ -332,7 +427,7 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", "Subscription")
-                        .WithMany()
+                        .WithMany("Subscribers")
                         .HasForeignKey("SubscriptionFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -393,16 +488,24 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Member", b =>
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Field", b =>
                 {
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", null)
-                        .WithMany("MembersList")
-                        .HasForeignKey("SubscriptionId");
+                    b.Navigation("Matches");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Match", b =>
+                {
+                    b.Navigation("MatchParticipants");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscription", b =>
                 {
-                    b.Navigation("MembersList");
+                    b.Navigation("Subscribers");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Member", b =>
+                {
+                    b.Navigation("Matches");
                 });
 #pragma warning restore 612, 618
         }
