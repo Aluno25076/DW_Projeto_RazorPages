@@ -34,6 +34,11 @@ namespace DW_Projeto_RazorPages.Data.Model
         [ForeignKey(nameof(FieldId))]
         public Field? Field { get; set; }
 
+        /// <summary>
+        /// Lista de participantes (Members) no jogo
+        /// </summary>
+        public ICollection<Member> Participants { get; set; } = [];
+
         // Relação de navegação: participantes neste jogo
         public ICollection<MatchParticipant> MatchParticipants { get; set; } = new List<MatchParticipant>();
 
