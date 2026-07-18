@@ -18,13 +18,12 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
+    <PackageReference Include="NuGet.Packaging" Version="7.6.0" />
+    <PackageReference Include="NuGet.Protocol" Version="7.6.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\EmployeePages\" />
-    <Folder Include="Areas\Identity\Pages\Account\" />
-    <Folder Include="Pages\Fields\" />
-    <Folder Include="Pages\Matches\" />
+    <Folder Include="Pages\Employees\" />
     <Folder Include="Pages\Members\" />
   </ItemGroup>
 

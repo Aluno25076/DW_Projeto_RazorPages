@@ -37,6 +37,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="Subscription.Subscribers" class="control-label"></label>
+                @*<input asp-for="Subscription.Subscribers" class="form-control" />
+                <span asp-validation-for="Subscription.Subscribers" class="text-danger"></span>
+                *@
+                <select asp-for="Subscription.Duration" class="form-control" asp-items="ViewBag.DurationTime">
+                    <option value="">-- Selecione o Modelo de Subscrição --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subscription.Subscribers" class="control-label"></label>
                 <input asp-for="Subscription.Subscribers" class="form-control" />
                 <span asp-validation-for="Subscription.Subscribers" class="text-danger"></span>
             </div>

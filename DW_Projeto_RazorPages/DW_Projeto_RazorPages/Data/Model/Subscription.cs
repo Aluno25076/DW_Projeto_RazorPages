@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Nome do modelo de subscrição
         /// </summary>
         [Required(ErrorMessage = "A {0} é obrigatória")]
+        [Display(Name = "Nome")]
         [StringLength(300)]
         public string Name { get; set; } = "";
 
@@ -27,6 +29,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Pagamento da subcrição / taxa da subscrição
         /// </summary>
         [Precision(9,2)]
+        [Display(Name = "Prestação")]
         public decimal Fee { get; set; }
 
         /// <summary>
@@ -35,7 +38,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [NotMapped] 
         [Required(ErrorMessage = "A {0} é obrigatória")] 
-        [Display(Name = "Quota")] 
+        [Display(Name = "Prestação")] 
         [StringLength(10)]
         [RegularExpression("[0-9]{1,7}([,.][0-9]{1,2})?",
            ErrorMessage = "A {0} deve ser um número com até 2 casas decimais")] 
@@ -45,12 +48,25 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Descrição do Programa do modelo de subscrição
         /// </summary>
         [StringLength(300)]
+        [Display(Name = "Programa")]
         public string SubscriptProgram { get; set; } = "";
 
         /// <summary>
         /// Tipo de Duração da subscrição
         /// </summary>
-        public enum Duration
+        [Required(ErrorMessage = "A {0} é obrigatória")]
+        [Display(Name = "Duração")]
+        public DurationTime Duration { get; set; }
+
+        /// <summary>
+        /// Lista de Membros que subscreveram ao plano de subscrição
+        /// </summary>
+        public ICollection<Member> Subscribers { get; set; } = [];
+
+        /// <summary>
+        /// Possiveis durações da subscrição
+        /// </summary>
+        public enum DurationTime
         {
             Weekly,
             Monthly,
@@ -58,10 +74,5 @@ namespace DW_Projeto_RazorPages.Data.Model
             Semesterly,
             Yearly
         }
-
-        /// <summary>
-        /// Lista de Membros que subscreveram ao plano de subscrição
-        /// </summary>
-        public ICollection<Member> Subscribers { get; set; } = [];
     }
 }

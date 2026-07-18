@@ -29,8 +29,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
             if (!dbContext.Subscriptions.Any())
             {
                 subscripts = [
-                    new Subscription{ Name="Novatos",  Fee=49.99M, SubscriptProgram="Começe a jogar"},
-                    new Subscription{ Name="Experts",  Fee=149.99M, SubscriptProgram="Alta competição"}
+                    new Subscription{ Name="Novatos",  Fee=49.99M, SubscriptProgram="Começe a jogar", Duration = Subscription.DurationTime.Monthly},
+                    new Subscription{ Name="Experts",  Fee=149.99M, SubscriptProgram="Alta competição", Duration = Subscription.DurationTime.Quarterly}
                 ];
                 await dbContext.Subscriptions.AddRangeAsync(subscripts);
                 haAdicao = true;
@@ -41,7 +41,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 await dbContext.Roles.AddRangeAsync(
                      new IdentityRole { Id = "tr", Name = "Trainer", NormalizedName = "TRAINER" },
-                     new IdentityRole { Id = "adm", Name = "Administrativo", NormalizedName = "ADMINISTRATIVO" }
+                     new IdentityRole { Id = "adm", Name = "Administrator", NormalizedName = "ADMINISTRATOR" }
                   );
                 haAdicao = true;
             }
@@ -96,7 +96,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
                 // associar os 'Treinadores' à role 'Treinador'
                 await dbContext.UserRoles.AddRangeAsync(
                      new IdentityUserRole<string> { UserId = users[0].Id, RoleId = "tr" },
-                     new IdentityUserRole<string> { UserId = users[1].Id, RoleId = "tr" }
+                     new IdentityUserRole<string> { UserId = users[1].Id, RoleId = "adm" }
                   );
 
                 haAdicao = true;
