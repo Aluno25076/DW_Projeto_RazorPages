@@ -9,7 +9,9 @@ namespace DW_Projeto_RazorPages.Data.Model
     /// </summary>
     public class Subscription
     {
-        // Identificador único da subscrição (chave primária)
+        /// <summary>
+        /// Identificador único da subscrição (chave primária)
+        /// </summary>
         [Key]
         public int Id { get; set; }
 
