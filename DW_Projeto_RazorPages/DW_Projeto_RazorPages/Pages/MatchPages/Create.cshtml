@@ -23,7 +23,7 @@
                 <span class="text-danger">*</span>
                 <label asp-for="Match.FieldId" class="control-label"></label>
                 @* dropdown com os campos existentes, em vez de um input numérico *@
-                <select asp-for="Match.FieldId" class="form-control"
+                <select asp-for="Match.FieldId" class="form-control" aria-required="true"
                         asp-items="ViewBag.FieldId">
                     <option value="">-- Escolha o campo --</option>
                 </select>

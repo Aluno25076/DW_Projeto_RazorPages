@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DW_Projeto_RazorPages.Data.Model;
 using DW_Projeto_RazorPages.Data;
@@ -18,6 +19,10 @@ public class EditModel : PageModel
     [BindProperty]
     public Match Match { get; set; } = default!;
 
+    /// <summary>
+    /// Prepara a página de edição de um jogo,
+    /// carregando o jogo pedido e a lista de campos para a dropdown
+    /// </summary>
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id is null)
@@ -31,15 +36,25 @@ public class EditModel : PageModel
             return NotFound();
         }
         Match = match;
+
+        // preencher a dropdown com os campos disponíveis
+        // (mostra o atributo 'Size'; o value é o 'Id')
+        ViewData["FieldId"] = new SelectList(_context.Fields, "Id", "Size");
         return Page();
     }
 
     // To protect from overposting attacks, enable the specific properties you want to bind to.
     // For more details, see https://aka.ms/RazorPagesCRUD.
+    /// <summary>
+    /// Processa a submissão do formulário de edição de um jogo
+    /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
+            // repor a dropdown antes de voltar à página,
+            // senão o select aparece vazio após um erro de validação
+            ViewData["FieldId"] = new SelectList(_context.Fields, "Id", "Size");
             return Page();
         }
 

@@ -15,15 +15,14 @@ public class CreateModel : PageModel
         _context = context;
     }
 
+    /// <summary>
+    /// Prepara a página de criação de um jogo,
+    /// carregando a lista de campos para a dropdown
+    /// </summary>
     public IActionResult OnGet()
     {
-
-        /// <summary>
-        /// preencher a dropdown com os campos disponíveis
-        /// (mostra o atributo 'Size'; o value é o 'Id')
-        /// </summary>
-        /// <returns></returns>
-
+        // preencher a dropdown com os campos disponíveis
+        // (mostra o atributo 'Size'; o value é o 'Id')
         ViewData["FieldId"] = new SelectList(_context.Fields, "Id", "Size");
         return Page();
     }
@@ -32,15 +31,15 @@ public class CreateModel : PageModel
     public Match Match { get; set; } = default!;
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD.
+    /// <summary>
+    /// Processa a submissão do formulário de criação de um jogo
+    /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
-            /// <summary>
-            /// repor a dropdown antes de voltar à página,
-            /// senão o select aparece vazio após um erro de validação (mostra o atributo 'Size'; o value é o 'Id')
-            /// </summary>
-            /// <returns></returns>
+            // repor a dropdown antes de voltar à página,
+            // senão o select aparece vazio após um erro de validação
             ViewData["FieldId"] = new SelectList(_context.Fields, "Id", "Size");
             return Page();
         }
