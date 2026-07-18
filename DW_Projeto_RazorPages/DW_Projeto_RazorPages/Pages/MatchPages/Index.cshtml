@@ -22,9 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Match[0].Field)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Match[0].MatchParticipants)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -40,9 +38,7 @@
             <td>
                 @Html.DisplayFor(model => item.Field)
             </td>
-            <td>
-                @Html.DisplayFor(model => item.MatchParticipants)
-            </td>
+         
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

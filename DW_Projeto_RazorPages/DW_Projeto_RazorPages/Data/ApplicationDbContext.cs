@@ -42,8 +42,7 @@ namespace DW_Projeto_RazorPages.Data
         // Tabela de jogos / partidas realizadas no clube
         public DbSet<Match> Matches { get; set; }
 
-        // Tabela intermédia: participantes em cada jogo
-        public DbSet<MatchParticipant> MatchParticipants { get; set; }
+    
 
         /// <summary>
         /// Configuração do modelo de dados usando a Fluent API do Entity Framework Core.
@@ -80,23 +79,11 @@ namespace DW_Projeto_RazorPages.Data
                 .HasForeignKey(ms => ms.SubscriptionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Configuração da chave primária composta da tabela intermédia MatchParticipant
-            modelBuilder.Entity<MatchParticipant>()
-                .HasKey(mp => new { mp.MatchId, mp.MemberId });
+         
 
-            // Configuração da relação entre MatchParticipant e Match
-            modelBuilder.Entity<MatchParticipant>()
-                .HasOne(mp => mp.Match)
-                .WithMany(m => m.MatchParticipants)
-                .HasForeignKey(mp => mp.MatchId)
-                .OnDelete(DeleteBehavior.Cascade);
+          
 
-            // Configuração da relação entre MatchParticipant e Member
-            modelBuilder.Entity<MatchParticipant>()
-                .HasOne(mp => mp.Member)
-                .WithMany(m => m.MatchParticipants)
-                .HasForeignKey(mp => mp.MemberId)
-                .OnDelete(DeleteBehavior.Restrict);
+       
 
             // Configuração da relação entre Match e Field
             modelBuilder.Entity<Match>()
