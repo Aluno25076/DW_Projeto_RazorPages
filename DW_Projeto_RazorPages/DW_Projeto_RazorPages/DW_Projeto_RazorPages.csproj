@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Employees\" />
-    <Folder Include="Areas\Identity\Pages\Account\" />
     <Folder Include="Pages\Members\" />
   </ItemGroup>
 

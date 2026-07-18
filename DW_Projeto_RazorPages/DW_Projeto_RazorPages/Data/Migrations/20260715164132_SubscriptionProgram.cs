@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using DW_Projeto_RazorPages.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 

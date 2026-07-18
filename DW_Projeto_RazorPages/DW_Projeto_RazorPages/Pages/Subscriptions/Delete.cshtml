@@ -38,11 +38,17 @@
                 @Html.DisplayFor(model => model.Subscription.SubscriptProgram)
         </dd>
         <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.Subscription.Subscribers)
+                @Html.DisplayNameFor(model => model.Subscription.Duration)
         </dt>
         <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.Subscription.Subscribers)
+                @Html.DisplayFor(model => model.Subscription.Duration)
         </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Subscription.Subscribers)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Subscription.Subscribers)
+            </dd>
     </dl>
     <form method="post">
         <input type="hidden" asp-for="Subscription.Id" />

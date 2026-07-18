@@ -29,8 +29,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
             if (!dbContext.Subscriptions.Any())
             {
                 subscripts = [
-                    new Subscription{ Name="Novatos",  Fee=49.99M, SubscriptProgram="Começe a jogar"},
-                    new Subscription{ Name="Experts",  Fee=149.99M, SubscriptProgram="Alta competição"}
+                    new Subscription{ Name="Novatos",  Fee=49.99M, SubscriptProgram="Começe a jogar", Duration = Subscription.DurationTime.Monthly},
+                    new Subscription{ Name="Experts",  Fee=149.99M, SubscriptProgram="Alta competição", Duration = Subscription.DurationTime.Quarterly}
                 ];
                 await dbContext.Subscriptions.AddRangeAsync(subscripts);
                 haAdicao = true;
