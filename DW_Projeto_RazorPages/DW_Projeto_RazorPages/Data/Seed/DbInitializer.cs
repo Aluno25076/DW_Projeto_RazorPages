@@ -55,8 +55,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 var user1 = new IdentityUser
                 {
-                    UserName = "joao_graca",
-                    NormalizedUserName = "JOAO_GRACA",
+                    UserName = "joao.graca@ipt.pt",
+                    NormalizedUserName = "JOAO.GRACA@IPT.PT",
                     Email = "joao.graca@ipt.pt",
                     NormalizedEmail = "JOAO.GRACA@IPT.PT",
                     EmailConfirmed = true,
@@ -67,8 +67,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
 
                 var user2 = new IdentityUser
                 {
-                    UserName = "afonso_gomes",
-                    NormalizedUserName = "AFONSO_GOMES",
+                    UserName = "afonso.gomes@ipt.pt",
+                    NormalizedUserName = "AFONSO.GOMES@IPT.PT",
                     Email = "afonso.gomes@ipt.pt",
                     NormalizedEmail = "AFONSO.GOMES@IPT.PT",
                     EmailConfirmed = true,
@@ -172,7 +172,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
                     dbContext.SaveChanges();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;
