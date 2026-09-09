@@ -3,11 +3,12 @@ using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DW_Projeto_RazorPages.Pages.SubscriptionPages;
 
-[Authorize(Roles = "Trainer")]
+[Authorize(Roles = "Trainer, Administrator")]
 public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;
@@ -41,6 +42,8 @@ public class EditModel : PageModel
         // para caso o projeto for do tipo MVC
         HttpContext.Session.SetString("action", "subscription/edit");
 
+        ViewData["DurationTime"] = new SelectList(Enum.GetValues(typeof(Subscription.DurationTime)).Cast<Subscription.DurationTime>());
+
         return Page();
     }
 
@@ -67,6 +70,7 @@ public class EditModel : PageModel
 
         if (!ModelState.IsValid)
         {
+            ViewData["DurationTime"] = new SelectList(Enum.GetValues(typeof(Subscription.DurationTime)).Cast<Subscription.DurationTime>());
             return Page();
         }
 

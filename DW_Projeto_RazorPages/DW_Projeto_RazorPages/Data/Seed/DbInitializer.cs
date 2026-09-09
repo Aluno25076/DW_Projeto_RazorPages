@@ -79,8 +79,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
 
                 var user3 = new IdentityUser
                 {
-                    UserName = "membro00001",
-                    NormalizedUserName = "MEMBRO00001",
+                    UserName = "membro00001@ipt.pt",
+                    NormalizedUserName = "MEMBRO00001@IPT.PT",
                     Email = "membro00001@ipt.pt",
                     NormalizedEmail = "MEMBRO00001@IPT.PT",
                     EmailConfirmed = true,
