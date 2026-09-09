@@ -7,7 +7,7 @@
 
 <h1>Lista de Planos de Subscrição</h1>
 
-@if (User.IsInRole("Trainer"))
+@if (User.IsInRole("Trainer") || User.IsInRole("Administrator"))
 {
     <p>
         <a asp-page="Create">Criar um novo plano de subscrição</a>
@@ -32,7 +32,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Subscription[0].Duration)
             </th>
-            @if (User.IsInRole("Trainer"))
+            @if (User.IsInRole("Trainer") || User.IsInRole("Administrator"))
             {
                 <th>
                     @Html.DisplayNameFor(model => model.Subscription[0].Subscribers)
@@ -59,7 +59,7 @@
                 <td>
                     @Html.DisplayFor(model => item.Duration)
                 </td>
-            @if (User.IsInRole("Trainer"))
+                @if (User.IsInRole("Trainer") || User.IsInRole("Administrator"))
             {
                 <td>
                     @foreach(var subscriber in item.Subscribers)

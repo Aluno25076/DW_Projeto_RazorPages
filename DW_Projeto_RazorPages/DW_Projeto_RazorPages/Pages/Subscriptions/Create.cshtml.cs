@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DW_Projeto_RazorPages.Pages.SubscriptionPages;
 
-[Authorize(Roles = "Trainer")]
+[Authorize(Roles = "Trainer, Administrator")]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;
