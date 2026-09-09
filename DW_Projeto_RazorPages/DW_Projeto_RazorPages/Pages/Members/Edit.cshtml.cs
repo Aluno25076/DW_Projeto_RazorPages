@@ -19,20 +19,20 @@ public class EditModel : PageModel
     [BindProperty]
     public Member Member { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(int? memberid)
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (memberid is null)
+        if (id is null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberNumber == memberid);
+        var member = await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
         if (member is null)
         {
             return NotFound();
         }
         Member = member;
-        ViewData["SubscriptionFl"] = new SelectList(_context.Subscriptions, "Id", "Name");
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions, "Id", "Name");
         return Page();
     }
 
@@ -66,8 +66,8 @@ public class EditModel : PageModel
         return RedirectToPage("./Index");
     }
 
-    private bool MemberExists(int memberid)
+    private bool MemberExists(int id)
     {
-        return _context.Members.Any(e => e.MemberNumber == memberid);
+        return _context.Members.Any(e => e.MemberNumber == id);
     }
 }

@@ -28,7 +28,7 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var subscription = await _context.Subscriptions.FirstOrDefaultAsync(m => m.Id == id);
+        var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id);
         if (subscription is null)
         {
             return NotFound();
