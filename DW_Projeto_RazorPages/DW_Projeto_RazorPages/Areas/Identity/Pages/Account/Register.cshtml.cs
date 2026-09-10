@@ -119,7 +119,7 @@ public class RegisterModel : PageModel
         //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
         // procurar os dados das Subscrições
-        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name");
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(s => s.Name), "Id", "Name");
     }
 
     public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
@@ -172,7 +172,7 @@ public class RegisterModel : PageModel
         // If we got this far, something failed, redisplay form
 
         // procurar os dados dos Planos de Subscrição
-        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(d => d.Name), "Id", "Name");
+        ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(s => s.Name), "Id", "Name");
 
         return Page();
     }

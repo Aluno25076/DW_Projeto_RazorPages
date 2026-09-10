@@ -18,14 +18,14 @@ public class DeleteModel : PageModel
     [BindProperty]
     public Member Member { get; set; } = default!;
 
-    public async Task<IActionResult> OnGetAsync(int? memberid)
+    public async Task<IActionResult> OnGetAsync(int? id)
     {
-        if (memberid is null)
+        if (id is null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FirstOrDefaultAsync(m => m.MemberNumber == memberid);
+        var member = await _context.Members.FirstOrDefaultAsync(m => m.Id == id);
         if (member is null)
         {
             return NotFound();
@@ -38,14 +38,14 @@ public class DeleteModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync(int? memberid)
+    public async Task<IActionResult> OnPostAsync(int? id)
     {
-        if (memberid is null)
+        if (id is null)
         {
             return NotFound();
         }
 
-        var member = await _context.Members.FindAsync(memberid);
+        var member = await _context.Members.FindAsync(id);
         if (member != null)
         {
             Member = member;
