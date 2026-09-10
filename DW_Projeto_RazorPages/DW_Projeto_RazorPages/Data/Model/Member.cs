@@ -22,7 +22,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Data e hora da matricula do Membro
         /// </summary>
         [Required(ErrorMessage = "O {0} é de preenchimento obrigatorio!")]
-        [Display(Name = "Data de nascimento")]
+        [Display(Name = "Data da Matricula")]
         [DataType(DataType.Date)]
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
