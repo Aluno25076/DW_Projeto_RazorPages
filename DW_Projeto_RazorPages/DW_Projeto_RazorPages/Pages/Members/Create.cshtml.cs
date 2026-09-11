@@ -31,7 +31,7 @@ public class CreateModel : PageModel
     {
         if (!ModelState.IsValid)
         {
-            ViewData["SubscriptionsFK"] = new SelectList(_context.Subscriptions.OrderBy(s => s.Name), "Id", "Name", Member.SubscriptionFK);
+            ViewData["SubscriptionFK"] = new SelectList(_context.Subscriptions.OrderBy(s => s.Name), "Id", "Name", Member.SubscriptionFK);
             return Page();
         }
 

@@ -27,13 +27,9 @@
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Field.Type" class="control-label"></label>
-                <input asp-for="Field.Type" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Field.Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Field.Matches" class="control-label"></label>
-                <input asp-for="Field.Matches" class="form-control" />
-                <span asp-validation-for="Field.Matches" class="text-danger"></span>
+                <select asp-for="Field.Type" class="form-control" asp-items="ViewBag.FieldType">
+                    <option value="">-- Selecione o tipo de Superfície --</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
