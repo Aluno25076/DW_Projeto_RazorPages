@@ -22,7 +22,7 @@ namespace DW_Projeto_RazorPages.Data.Model
         [StringLength(9, ErrorMessage = "As dimensões não podem exceder 9 caracteres.")]
         [Display(Name = "Dimensões")]
         [RegularExpression("[0-9]{1,4}[x][0-9]{1,4}",
-           ErrorMessage = "A {0} deve ser um número com até 2 casas decimais")]
+           ErrorMessage = "A {0} deve ser fo formato 9999x9999")]
         public string Size { get; set; } = string.Empty;
 
         /// <summary>
