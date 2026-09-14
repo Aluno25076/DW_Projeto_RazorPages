@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace DW_Projeto_RazorPages.Data.Model
 {
@@ -19,19 +20,29 @@ namespace DW_Projeto_RazorPages.Data.Model
             /// <summary>
             /// salário do funcionário 
             /// </summary>
-            [Required(ErrorMessage = "O funcionário precisa de ser pago.")]
-            [Column(TypeName = "decimal(8,2)")]
+            [Precision(9,2)]
             [Display(Name = "Salário")]
-            [DataType(DataType.Currency)]
             public decimal Salary { get; set; }
 
-           /// <summary>
-           /// estado de emprego do funcionário 
-           /// </summary>
-            [Required(ErrorMessage = "O estado de emprego é obrigatório.")]
+        /// <summary>
+        /// atributo auxiliar para a taxa, para garantir 
+        /// que o salario possa ser guardado como uma moeda padrão
+        /// </summary>
+        [NotMapped]
+        [Required(ErrorMessage = "O funcionário precisa de ser pago.")]
+        [Display(Name = "Salário")]
+        [StringLength(10)]
+        [RegularExpression("[0-9]{1,7}([,.][0-9]{1,2})?",
+        ErrorMessage = "A {0} deve ser um número com até 2 casas decimais")]
+        public string SalaryAux { get; set; } = "";
+
+
+        /// <summary>
+        /// estado de emprego do funcionário 
+        /// </summary>
+        [Required(ErrorMessage = "O estado de emprego é obrigatório.")]
             [Display(Name = "Estado de Emprego")]
-            public EmploymentStatus EmploymentStatus { get; set; }
-        }
+            public EmploymentStatus Status { get; set; }
 
         /// <summary>
         /// Estado do funcionário
@@ -39,14 +50,16 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         public enum EmploymentStatus
         {
-           /// <summary>
-           /// Funcionário ativo
-           /// </summary>
+            /// <summary>
+            /// Funcionário ativo
+            /// </summary>
             Active,
-           /// <summary>
-           /// Funcionário inativo / despedido
-           /// </summary>
+            /// <summary>
+            /// Funcionário inativo / despedido
+            /// </summary>
             Inactive
         }
+
+    }
     }
 

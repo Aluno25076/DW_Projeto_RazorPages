@@ -1,8 +1,9 @@
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.EmployeePages;
 
@@ -31,6 +32,15 @@ public class EditModel : PageModel
             return NotFound();
         }
         Employee = employee;
+
+        //isto guarda os dados que são enviados para o navegador,
+        //de forma a garantir que o id do funcionario é mantido,
+        //ou seja, que não foi alterado por um utilizador com más intenções
+        HttpContext.Session.SetInt32("EmployeeId", Employee.Id);
+        // para caso o projeto for do tipo MVC
+        HttpContext.Session.SetString("action", "employee/edit");
+
+        ViewData["EmploymentStatus"] = new SelectList(Enum.GetValues(typeof(Employee.EmploymentStatus)).Cast<Employee.EmploymentStatus>());
         return Page();
     }
 
@@ -40,6 +50,7 @@ public class EditModel : PageModel
     {
         if (!ModelState.IsValid)
         {
+            ViewData["EmploymentStatus"] = new SelectList(Enum.GetValues(typeof(Employee.EmploymentStatus)).Cast<Employee.EmploymentStatus>());
             return Page();
         }
 

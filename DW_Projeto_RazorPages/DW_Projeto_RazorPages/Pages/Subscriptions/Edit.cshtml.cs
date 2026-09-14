@@ -36,7 +36,7 @@ public class EditModel : PageModel
         Subscription = subscription;
 
         //isto guarda os dados que são enviados para o navegador,
-        //de forma a garantir que o id do curso é mantido,
+        //de forma a garantir que o id do plano de subscrição é mantido,
         //ou seja, que não foi alterado por um utilizador com más intenções
         HttpContext.Session.SetInt32("SubscriptionId", Subscription.Id);
         // para caso o projeto for do tipo MVC
