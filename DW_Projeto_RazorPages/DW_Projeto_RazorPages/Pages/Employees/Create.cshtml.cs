@@ -41,8 +41,17 @@ public class CreateModel : PageModel
         // convertendo de string para decimal
         Employee.Salary = Convert.ToDecimal(Employee.SalaryAux.Replace('.', ','), new CultureInfo("pt-PT"));
 
-        _context.Employees.Add(Employee);
-        await _context.SaveChangesAsync();
+        try
+        {
+            _context.Employees.Add(Employee);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            //TODO
+            throw;
+        }
+
 
         return RedirectToPage("./Index");
     }

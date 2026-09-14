@@ -108,16 +108,16 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 membr = [
                     new Member{ Name="Mário Lopes", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=1,
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=0,
                        UserID = users[2].Id},
                     new Member{ Name="Joana Gomes", BirthDate=DateOnly.Parse("2000-12-16"),CellPhone="913456789" ,
-                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=1},
                     new Member{ Name="João Silva", BirthDate=DateOnly.Parse("1999-12-31"),CellPhone="92345687" ,
-                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=3},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
                     new Member{ Name="Maria Santos", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="9612347" ,
-                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
+                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=3},
                     new Member{ Name="Ana Costa", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=5},
+                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
         ];
                 await dbContext.Members.AddRangeAsync(membr);
                 haAdicao = true;
@@ -130,8 +130,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
             if (!dbContext.Employees.Any())
             {
                 trainers = [
-                    new Employee { Name="João Graça", BirthDate=DateOnly.Parse("1970-04-10"), CellPhone="919876543" , UserID=users[0].Id },
-                    new Employee { Name="Afonso Gomes", BirthDate=DateOnly.Parse("1988-09-12"), CellPhone="918076543" , UserID=users[1].Id }
+                    new Employee { Name="Afonso Gomes", BirthDate=DateOnly.Parse("1970-09-12"), CellPhone="918076543" , UserID=users[0].Id, Salary=100, FuncNum=0},
+                    new Employee { Name="João Graça", BirthDate=DateOnly.Parse("1988-04-10"), CellPhone="919876543" , UserID=users[1].Id, Salary=500, FuncNum=1},
                   ];
                 await dbContext.Employees.AddRangeAsync(trainers);
                 haAdicao = true;

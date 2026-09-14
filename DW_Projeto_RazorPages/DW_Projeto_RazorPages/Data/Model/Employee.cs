@@ -15,7 +15,7 @@ namespace DW_Projeto_RazorPages.Data.Model
             /// número de funcionário interno do clube
             /// </summary>
             [Display(Name = "Número de Funcionário")]
-            public int? FuncNum { get; set; }
+            public int FuncNum { get; set; }
 
             /// <summary>
             /// salário do funcionário 
