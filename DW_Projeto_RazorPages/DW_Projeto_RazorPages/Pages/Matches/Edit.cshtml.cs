@@ -18,6 +18,8 @@ public class EditModel : PageModel
     [BindProperty]
     public Match Match { get; set; } = default!;
 
+    //TODO fazer a seleção multipla para 
+
     public async Task<IActionResult> OnGetAsync(int? id)
     {
         if (id is null)

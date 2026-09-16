@@ -17,8 +17,6 @@ namespace DW_Projeto_RazorPages.Data.Model
         [Key]
         public int Id { get; set; }
 
-
-
         /// <summary>
         /// Data em que o jogo foi / será realizado
         /// </summary>
@@ -32,12 +30,12 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// </summary>
         [Required(ErrorMessage = "O campo é obrigatório.")]
         [Display(Name = "Campo")]
-        public int FieldId { get; set; }
+        public int FieldFK { get; set; }
 
         /// <summary>
         /// Propriedade de navegação para o campo de ténis
         /// </summary>
-        [ForeignKey(nameof(FieldId))]
+        [ForeignKey(nameof(FieldFK))]
         public Field? Field { get; set; }
 
         /// <summary>

@@ -19,6 +19,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        Member = await _context.Members.ToListAsync();
+        Member = await _context.Members.Include(m => m.Subscription).ToListAsync();
     }
 }

@@ -17,8 +17,10 @@ public class IndexModel : PageModel
 
     public IList<Match> Match { get; set; } = default!;
 
+    public IList<int> ParticipantIds { get; set; } = [];
+
     public async Task OnGetAsync()
     {
-        Match = await _context.Matches.ToListAsync();
+        Match = await _context.Matches.Include(f => f.Field).Include(m => m.Participants).ToListAsync();
     }
 }

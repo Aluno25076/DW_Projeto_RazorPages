@@ -17,12 +17,11 @@
                 @Html.DisplayNameFor(model => model.Match[0].Day)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Match[0].FieldId)
+                @Html.DisplayNameFor(model => model.Match[0].FieldFK)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Match[0].Field)
+                @Html.DisplayNameFor(model => model.Match[0].Participants)
             </th>
-           
             <th></th>
         </tr>
     </thead>
@@ -33,12 +32,16 @@
                 @Html.DisplayFor(model => item.Day)
             </td>
             <td>
-                @Html.DisplayFor(model => item.FieldId)
+                    @Html.DisplayFor(model => item.Field.Number)
             </td>
-            <td>
-                @Html.DisplayFor(model => item.Field)
-            </td>
-         
+                <td>
+                    @*  @Html.DisplayFor(model => item.ProfessorsList) *@
+                    @foreach (var participant in item.Participants)
+                    {
+                        @Html.DisplayFor(model => participant.Name)
+                        <br />
+                    }
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
