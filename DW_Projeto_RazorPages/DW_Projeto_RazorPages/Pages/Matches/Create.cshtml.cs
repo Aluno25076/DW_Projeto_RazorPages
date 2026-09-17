@@ -33,19 +33,30 @@ public class CreateModel : PageModel
     [BindProperty]
     public Match Match { get; set; } = default!;
 
-    //Lista que guarda os IDs dos partecipantes
+    ///<summary>
+    ///Lista que guarda os IDs dos partecipantes
+    ///<summary>
     [BindProperty]
     public List<int> SelectedParticipants { get; set; } = new();
 
     // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
-        // Isto remove a validação automática da navegação, caso contrario o ModelState ficará invalido
+        ///<summary>
+        /// Isto remove a validação automática da navegação, caso contrario o ModelState ficará invalido
+        ///<summary>
         ModelState.Remove("Match.Participants");
 
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid || (SelectedParticipants.Count != 2 && SelectedParticipants.Count != 4))
         {
-            //TODO fazer com que aceite exatamente 2 ou 4 jogadores
+            ///<summary>
+            /// Só permite que dois ou quatro jogadores partecipem
+            /// </summary>
+            if (SelectedParticipants.Count != 2 && SelectedParticipants.Count != 4)
+            {
+                ModelState.AddModelError(nameof(SelectedParticipants), "Escolha dois ou quatro participantes.");
+            }
+                
 
             /// <summary>
             /// repor a dropdown antes de voltar à página,
@@ -61,10 +72,15 @@ public class CreateModel : PageModel
             return Page();
         }
 
-        // Carrega a Lista de Membros
+
+        ///<summary>
+        /// Carrega a Lista de Membros
+        /// </summary> 
         var members = await _context.Members.Where(m => SelectedParticipants.Contains(m.Id)).ToListAsync();
 
-        // Associa os Membors da lista de participantes á Partida
+        ///<summary>
+        /// Associa os Membors da lista de participantes á Partida
+        /// </summary>
         Match.Participants = members;
 
         _context.Matches.Add(Match);

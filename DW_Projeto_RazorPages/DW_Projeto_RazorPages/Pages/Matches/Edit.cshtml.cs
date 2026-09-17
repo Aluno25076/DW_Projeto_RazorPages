@@ -1,8 +1,9 @@
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.MatchPages;
 
@@ -18,7 +19,11 @@ public class EditModel : PageModel
     [BindProperty]
     public Match Match { get; set; } = default!;
 
-    //TODO fazer a seleção multipla para 
+    /// <summary>
+    /// Lista que guarda os IDs dos partecipantes
+    /// </summary>
+    [BindProperty]
+    public List<int> SelectedParticipants { get; set; } = new();
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -27,12 +32,20 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var match = await _context.Matches.FirstOrDefaultAsync(m => m.Id == id);
+        var match = await _context.Matches.Include(m => m.Participants).FirstOrDefaultAsync(m => m.Id == id);
         if (match is null)
         {
             return NotFound();
         }
         Match = match;
+
+        ///<summary>
+        ///carrega a lista dos partecipantes atuais (o que ja estava presente na db)
+        ///<summary>
+        SelectedParticipants = match.Participants.Select(p => p.Id).ToList();
+
+        ViewData["FieldFK"] = new SelectList(_context.Fields, "Id", "Number");
+        ViewData["ParticipantsFK"] = new MultiSelectList(_context.Members, "Id", "Name", SelectedParticipants);
         return Page();
     }
 
@@ -40,12 +53,69 @@ public class EditModel : PageModel
     // For more details, see https://aka.ms/RazorPagesCRUD.
     public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid)
+        ///<summary>
+        /// Isto remove a validação automática da navegação, caso contrario o ModelState ficará invalido
+        ///<summary>
+        ModelState.Remove("Match.Participants");
+
+        if (!ModelState.IsValid || (SelectedParticipants.Count != 2 && SelectedParticipants.Count != 4))
         {
+
+            ///<summary>
+            /// Só permite que dois ou quatro jogadores partecipem
+            /// </summary>
+            if (SelectedParticipants.Count != 2 && SelectedParticipants.Count != 4)
+            {
+                ModelState.AddModelError(nameof(SelectedParticipants), "Escolha dois ou quatro participantes.");
+            }
+
+            /// <summary>
+            /// repor a dropdown antes de voltar à página,
+            /// senão o select aparece vazio após um erro de validação (mostra o atributo 'Size'; o value é o 'Id')
+            /// </summary>
+            /// <returns></returns>
+            ViewData["FieldFK"] = new SelectList(_context.Fields, "Id", "Number", Match.FieldFK);
+
+            /// <summary>
+            /// Usa a Lista SelectedParticipants
+            /// </summary>
+            ViewData["ParticipantsFK"] = new MultiSelectList(_context.Members, "Id", "Name", SelectedParticipants);
             return Page();
         }
 
-        _context.Attach(Match).State = EntityState.Modified;
+        var matchToUpdate = await _context.Matches.Include(m => m.Participants).FirstOrDefaultAsync(m => m.Id == Match.Id);
+
+        if (matchToUpdate is null)
+        {
+            return NotFound();
+        }
+
+        ///<summary>
+        /// Atualiza os campos 
+        /// </summary>
+        matchToUpdate.Day = Match.Day;
+        matchToUpdate.FieldFK = Match.FieldFK;
+
+        ///<summary>
+        /// Atualiza a coleção de participantes 
+        /// começando por criar a nova lista de participantes
+        /// </summary>
+        var newParticipants = await _context.Members.Where(m => SelectedParticipants.Contains(m.Id)).ToListAsync();
+
+        ///<summary>
+        /// Depois limpa a colleção
+        /// </summary>
+        matchToUpdate.Participants.Clear();
+
+        ///<summary>
+        /// E volta a preencher
+        /// </summary>
+        foreach (var member in newParticipants)
+        {
+            matchToUpdate.Participants.Add(member);
+        }
+
+        //_context.Attach(Match).State = EntityState.Modified;
 
         try
         {
