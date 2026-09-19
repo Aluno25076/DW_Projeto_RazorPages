@@ -1,11 +1,15 @@
+using System.Globalization;
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.EmployeePages;
 
+[Authorize(Roles = "Administrator")]
 public class CreateModel : PageModel
 {
     private readonly ApplicationDbContext _context;
@@ -17,6 +21,7 @@ public class CreateModel : PageModel
 
     public IActionResult OnGet()
     {
+        ViewData["EmploymentStatus"] = new SelectList(Enum.GetValues(typeof(Employee.EmploymentStatus)).Cast<Employee.EmploymentStatus>());
         return Page();
     }
 
@@ -28,11 +33,25 @@ public class CreateModel : PageModel
     {
         if (!ModelState.IsValid)
         {
+            ViewData["EmploymentStatus"] = new SelectList(Enum.GetValues(typeof(Employee.EmploymentStatus)).Cast<Employee.EmploymentStatus>());
             return Page();
         }
 
-        _context.Employees.Add(Employee);
-        await _context.SaveChangesAsync();
+        // atribuir o valor auxiliar do salario do funcionario,
+        // convertendo de string para decimal
+        Employee.Salary = Convert.ToDecimal(Employee.SalaryAux.Replace('.', ','), new CultureInfo("pt-PT"));
+
+        try
+        {
+            _context.Employees.Add(Employee);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            //TODO
+            throw;
+        }
+
 
         return RedirectToPage("./Index");
     }

@@ -55,8 +55,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 var user1 = new IdentityUser
                 {
-                    UserName = "joao_graca",
-                    NormalizedUserName = "JOAO_GRACA",
+                    UserName = "joao.graca@ipt.pt",
+                    NormalizedUserName = "JOAO.GRACA@IPT.PT",
                     Email = "joao.graca@ipt.pt",
                     NormalizedEmail = "JOAO.GRACA@IPT.PT",
                     EmailConfirmed = true,
@@ -67,8 +67,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
 
                 var user2 = new IdentityUser
                 {
-                    UserName = "afonso_gomes",
-                    NormalizedUserName = "AFONSO_GOMES",
+                    UserName = "afonso.gomes@ipt.pt",
+                    NormalizedUserName = "AFONSO.GOMES@IPT.PT",
                     Email = "afonso.gomes@ipt.pt",
                     NormalizedEmail = "AFONSO.GOMES@IPT.PT",
                     EmailConfirmed = true,
@@ -79,8 +79,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
 
                 var user3 = new IdentityUser
                 {
-                    UserName = "membro00001",
-                    NormalizedUserName = "MEMBRO00001",
+                    UserName = "membro00001@ipt.pt",
+                    NormalizedUserName = "MEMBRO00001@IPT.PT",
                     Email = "membro00001@ipt.pt",
                     NormalizedEmail = "MEMBRO00001@IPT.PT",
                     EmailConfirmed = true,
@@ -108,16 +108,16 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 membr = [
                     new Member{ Name="Mário Lopes", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=1,
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-02-15"), MemberNumber=0,
                        UserID = users[2].Id},
                     new Member{ Name="Joana Gomes", BirthDate=DateOnly.Parse("2000-12-16"),CellPhone="913456789" ,
-                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=1},
                     new Member{ Name="João Silva", BirthDate=DateOnly.Parse("1999-12-31"),CellPhone="92345687" ,
-                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=3},
+                       Subscription= subscripts[0], RegistrationDate=DateTime.Parse("2024-12-15"), MemberNumber=2},
                     new Member{ Name="Maria Santos", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="9612347" ,
-                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
+                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=3},
                     new Member{ Name="Ana Costa", BirthDate=DateOnly.Parse("2000-12-15"),CellPhone="" ,
-                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=5},
+                       Subscription= subscripts[1], RegistrationDate=DateTime.Parse("2026-12-15"), MemberNumber=4},
         ];
                 await dbContext.Members.AddRangeAsync(membr);
                 haAdicao = true;
@@ -130,8 +130,8 @@ namespace DW_Projeto_RazorPages.Data.Seed
             if (!dbContext.Employees.Any())
             {
                 trainers = [
-                    new Employee { Name="João Graça", BirthDate=DateOnly.Parse("1970-04-10"), CellPhone="919876543" , UserID=users[0].Id },
-                    new Employee { Name="Afonso Gomes", BirthDate=DateOnly.Parse("1988-09-12"), CellPhone="918076543" , UserID=users[1].Id }
+                    new Employee { Name="Afonso Gomes", BirthDate=DateOnly.Parse("1970-09-12"), CellPhone="918076543" , UserID=users[0].Id, Salary=100, FuncNum=0},
+                    new Employee { Name="João Graça", BirthDate=DateOnly.Parse("1988-04-10"), CellPhone="919876543" , UserID=users[1].Id, Salary=500, FuncNum=1},
                   ];
                 await dbContext.Employees.AddRangeAsync(trainers);
                 haAdicao = true;
@@ -152,14 +152,15 @@ namespace DW_Projeto_RazorPages.Data.Seed
             }
 
             //Partidas criadas
+            var matches = Array.Empty<Match>();
             if (!dbContext.Matches.Any() && fld.Length > 0)
             {
-                var matches = new Match[] {
+                matches = [
                     new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(2)), Field = fld[0],
-                       Participants = [membr[0], membr[1]] },
+                       Participants = [membr[0], membr[1]], Result = new Match.MatchResult{Winners = [membr[0]]} },
                     new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), Field = fld[2],
-                       Participants = [membr[3], membr[4]] }
-                };
+                       Participants = [membr[3], membr[4]], Result = new Match.MatchResult() }
+                ];
                 await dbContext.Matches.AddRangeAsync(matches);
                 haAdicao = true;
             }
@@ -172,7 +173,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
                     dbContext.SaveChanges();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;

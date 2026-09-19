@@ -13,22 +13,24 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Employee.FuncNum" class="control-label"></label>
-                <input asp-for="Employee.FuncNum" class="form-control" />
-                <span asp-validation-for="Employee.FuncNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <span class="text-danger">*</span>
                 <label asp-for="Employee.Salary" class="control-label"></label>
                 <input asp-for="Employee.Salary" class="form-control" aria-required="true"/>
                 <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Employee.SalaryAux" class="control-label"></label>
+                <input asp-for="Employee.SalaryAux" class="form-control" aria-required="true" />
+                <span asp-validation-for="Employee.SalaryAux" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Employee.EmploymentStatus" class="control-label"></label>
-                <input asp-for="Employee.EmploymentStatus" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Employee.EmploymentStatus" class="text-danger"></span>
+                <label asp-for="Employee.Status" class="control-label"></label>
+                <select asp-for="Employee.Status" class="form-control" asp-items="ViewBag.EmploymentStatus">
+                    <option value="">-- Estado do Funcionario --</option>
+                </select>
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>

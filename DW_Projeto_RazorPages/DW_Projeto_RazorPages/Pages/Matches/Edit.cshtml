@@ -22,16 +22,22 @@
             </div>
             <div class="form-group">
                 <span class="text-danger">*</span>
-                <label asp-for="Match.FieldId" class="control-label"></label>
-                <input asp-for="Match.FieldId" class="form-control" aria-required="true"/>
-                <span asp-validation-for="Match.FieldId" class="text-danger"></span>
+                <label asp-for="Match.FieldFK" class="control-label"></label>
+                <select asp-for="Match.FieldFK" class="form-control"
+                        asp-items="ViewBag.FieldFK">
+                    <option value="">-- Escolha o campo --</option>
+                </select>
+                <span asp-validation-for="Match.FieldFK" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Match.Field" class="control-label"></label>
-                <input asp-for="Match.Field" class="form-control" />
-                <span asp-validation-for="Match.Field" class="text-danger"></span>
+                <span class="text-danger">*</span>
+                <label asp-for="SelectedParticipants" class="control-label"></label>
+                <select asp-for="SelectedParticipants" id="participantsSelect" multiple="multiple" size="6" class="form-control"
+                        asp-items="ViewBag.ParticipantsFK as MultiSelectList">
+                    <option value="">-- Escolha os participantes --</option>
+                </select>
+                <span asp-validation-for="SelectedParticipants" class="text-danger"></span>
             </div>
-           
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -45,4 +51,20 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @*isto permite com que multiplas opções possam ser selecionadas sem a necessidade de primir a tecla Ctrl*@
+    @*Esta parte do codigo foi completamente gerado por IA*@
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const select = document.getElementById('participantsSelect');
+
+            select.querySelectorAll('option').forEach(option => {
+                option.addEventListener('mousedown', function(e) {
+                    e.preventDefault();
+                    this.selected = !this.selected;
+                    select.dispatchEvent(new Event('change'));
+                });
+            });
+        });
+    </script>
 }

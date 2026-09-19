@@ -1,11 +1,14 @@
+using DW_Projeto_RazorPages.Data;
+using DW_Projeto_RazorPages.Data.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DW_Projeto_RazorPages.Data.Model;
-using DW_Projeto_RazorPages.Data;
 
 namespace DW_Projeto_RazorPages.Pages.FieldPages;
 
+[Authorize(Roles = "Trainer, Administrator")]
 public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;
@@ -31,6 +34,7 @@ public class EditModel : PageModel
             return NotFound();
         }
         Field = field;
+        ViewData["FieldType"] = new SelectList(Enum.GetValues(typeof(Field.FieldType)).Cast<Field.FieldType>());
         return Page();
     }
 
@@ -40,6 +44,7 @@ public class EditModel : PageModel
     {
         if (!ModelState.IsValid)
         {
+            ViewData["FieldType"] = new SelectList(Enum.GetValues(typeof(Field.FieldType)).Cast<Field.FieldType>());
             return Page();
         }
 

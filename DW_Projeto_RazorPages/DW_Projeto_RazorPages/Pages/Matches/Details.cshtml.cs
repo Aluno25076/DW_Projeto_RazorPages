@@ -23,7 +23,7 @@ public class DetailsModel : PageModel
             return NotFound();
         }
 
-        var match = await _context.Matches.FirstOrDefaultAsync(m => m.Id == id);
+        var match = await _context.Matches.Include(m => m.Participants).FirstOrDefaultAsync(m => m.Id == id);
         if (match is null)
         {
             return NotFound();

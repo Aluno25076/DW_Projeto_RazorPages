@@ -3,11 +3,12 @@ using DW_Projeto_RazorPages.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DW_Projeto_RazorPages.Pages.SubscriptionPages;
 
-[Authorize(Roles = "Trainer")]
+[Authorize(Roles = "Trainer, Administrator")]
 public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;
@@ -27,7 +28,7 @@ public class EditModel : PageModel
             return NotFound();
         }
 
-        var subscription = await _context.Subscriptions.FirstOrDefaultAsync(m => m.Id == id);
+        var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id);
         if (subscription is null)
         {
             return NotFound();
@@ -35,11 +36,13 @@ public class EditModel : PageModel
         Subscription = subscription;
 
         //isto guarda os dados que são enviados para o navegador,
-        //de forma a garantir que o id do curso é mantido,
+        //de forma a garantir que o id do plano de subscrição é mantido,
         //ou seja, que não foi alterado por um utilizador com más intenções
         HttpContext.Session.SetInt32("SubscriptionId", Subscription.Id);
         // para caso o projeto for do tipo MVC
         HttpContext.Session.SetString("action", "subscription/edit");
+
+        ViewData["DurationTime"] = new SelectList(Enum.GetValues(typeof(Subscription.DurationTime)).Cast<Subscription.DurationTime>());
 
         return Page();
     }
@@ -67,6 +70,7 @@ public class EditModel : PageModel
 
         if (!ModelState.IsValid)
         {
+            ViewData["DurationTime"] = new SelectList(Enum.GetValues(typeof(Subscription.DurationTime)).Cast<Subscription.DurationTime>());
             return Page();
         }
 

@@ -1,0 +1,46 @@
+@page
+@model DW_Projeto_RazorPages.Pages.Members.RankingIndexModel
+
+@{
+    ViewData["Title"] = "StatiticsIndex";
+}
+
+<h1>Statiticas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].SubscriptionFK)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Matches)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member[0].Wins)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Member) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Subscription.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+            <td>
+                @item.Matches.Count()
+            </td>
+            <td>
+                @item.Wins.Count()
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

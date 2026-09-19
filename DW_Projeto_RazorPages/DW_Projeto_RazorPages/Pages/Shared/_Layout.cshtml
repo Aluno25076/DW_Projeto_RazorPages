@@ -30,18 +30,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Subscriptions/Index">Subscrições</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">Membros</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Matches/Index">Jogos</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Matches/Index">Partidas</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Fields/Index">Campos</a>
                         </li>
-                        @if (User.IsInRole("Administrator"))
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Members/RankingIndex">Ranking</a>
+                        </li>
+                        @if (User.IsInRole("Trainer") || User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Employees/Index">Membros</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Members/Index">Membros</a>
+                            </li>
+                        }
+                            @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Employees/Index">Funcionarios</a>
                             </li>
                         }
                             
