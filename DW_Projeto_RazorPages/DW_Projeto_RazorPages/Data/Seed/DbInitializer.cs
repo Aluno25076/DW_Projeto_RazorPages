@@ -157,7 +157,7 @@ namespace DW_Projeto_RazorPages.Data.Seed
             {
                 matches = [
                     new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(2)), Field = fld[0],
-                       Participants = [membr[0], membr[1]], Result = new Match.MatchResult{Wienners = [membr[0]]} },
+                       Participants = [membr[0], membr[1]], Result = new Match.MatchResult{Winners = [membr[0]]} },
                     new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), Field = fld[2],
                        Participants = [membr[3], membr[4]], Result = new Match.MatchResult() }
                 ];

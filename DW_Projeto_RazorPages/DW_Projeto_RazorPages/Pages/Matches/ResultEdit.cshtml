@@ -16,11 +16,11 @@
             <input type="hidden" asp-for="Match.Id" />
 			<input type="hidden" asp-for="Match.Result.ResultId" />
             <div class="form-group">
-                <select asp-for="SelectedWienners" id="wiennersSelect" multiple="multiple" size="6" class="form-control"
-                        asp-items="ViewBag.WiennersFK as MultiSelectList">
+                <select asp-for="SelectedWinners" id="winnersSelect" multiple="multiple" size="6" class="form-control"
+                        asp-items="ViewBag.WinnersFK as MultiSelectList">
                     <option value="" disabled>-- Escolha os vencedores --</option>
                 </select>
-                <span asp-validation-for="SelectedWienners" class="text-danger"></span>
+                <span asp-validation-for="SelectedWinners" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -42,7 +42,7 @@
 @*Esta parte do codigo foi completamente gerado por IA*@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-            const select = document.getElementById('wiennersSelect');
+            const select = document.getElementById('winnersSelect');
 
             select.querySelectorAll('option').forEach(option => {
                 option.addEventListener('mousedown', function (e) {

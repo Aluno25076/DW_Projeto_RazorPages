@@ -23,7 +23,7 @@ public class ResultEditModel : PageModel
     ///Lista que guarda os IDs dos vencedores
     ///<summary>
     [BindProperty]
-    public List<int> SelectedWienners { get; set; } = new();
+    public List<int> SelectedWinners { get; set; } = new();
 
     public async Task<IActionResult> OnGetAsync(int? id)
     {
@@ -35,7 +35,7 @@ public class ResultEditModel : PageModel
         var match = await _context.Matches
                                     .Include(m => m.Participants)
                                     .Include(m => m.Result)
-                                        .ThenInclude(r => r.Wienners)
+                                        .ThenInclude(r => r.Winners)
                                     .FirstOrDefaultAsync(m => m.Id == id);
         if (match is null)
         {
@@ -46,9 +46,9 @@ public class ResultEditModel : PageModel
         ///<summary>
         ///carrega a lista dos partecipantes atuais (o que ja estava presente na db)
         ///<summary>
-        SelectedWienners = match.Result?.Wienners.Select(p => p.Id).ToList() ?? new();
+        SelectedWinners = match.Result?.Winners.Select(p => p.Id).ToList() ?? new();
 
-        ViewData["WiennersFK"] = new MultiSelectList(match.Participants, "Id", "Name", SelectedWienners);
+        ViewData["WinnersFK"] = new MultiSelectList(match.Participants, "Id", "Name", SelectedWinners);
         return Page();
     }
 
@@ -59,21 +59,21 @@ public class ResultEditModel : PageModel
         ///<summary>
         /// Isto remove a validação automática da navegação, caso contrario o ModelState ficará invalido
         ///<summary>
-        ModelState.Remove("Match.Result.Wienners");
+        ModelState.Remove("Match.Result.Winners");
 
-        if (!ModelState.IsValid || (Match.Participants.Count == 2 && SelectedWienners.Count != 1) || (Match.Participants.Count == 4 && SelectedWienners.Count != 2) )
+        if (!ModelState.IsValid || (Match.Participants.Count == 2 && SelectedWinners.Count != 1) || (Match.Participants.Count == 4 && SelectedWinners.Count != 2) )
         {
             ///<summary>
             /// Só permite que dois ou quatro jogadores partecipem
             /// </summary>
-            if (Match.Participants.Count == 2 && SelectedWienners.Count != 1)
+            if (Match.Participants.Count == 2 && SelectedWinners.Count != 1)
             {
-                ModelState.AddModelError(nameof(SelectedWienners), "Selecione apenas um vencedor.");
+                ModelState.AddModelError(nameof(SelectedWinners), "Selecione apenas um vencedor.");
             }
 
-            if (Match.Participants.Count == 4 && SelectedWienners.Count != 2)
+            if (Match.Participants.Count == 4 && SelectedWinners.Count != 2)
             {
-                ModelState.AddModelError(nameof(SelectedWienners), "Selecione exatamente dois vencedores.");
+                ModelState.AddModelError(nameof(SelectedWinners), "Selecione exatamente dois vencedores.");
             }
 
             var matchForView = await _context.Matches
@@ -83,11 +83,11 @@ public class ResultEditModel : PageModel
             /// <summary>
             /// Usa uma lista ja existente ou cria uma nova lista
             /// </summary>
-            ViewData["WiennersFK"] = new MultiSelectList(matchForView?.Participants ?? new List<Member>(), "Id", "Name", SelectedWienners);
+            ViewData["WinnersFK"] = new MultiSelectList(matchForView?.Participants ?? new List<Member>(), "Id", "Name", SelectedWinners);
             return Page();
         }
 
-        var resultToUpdate = await _context.Matches.Include(m => m.Result.Wienners).FirstOrDefaultAsync(m => m.Id == Match.Id);
+        var resultToUpdate = await _context.Matches.Include(m => m.Result.Winners).FirstOrDefaultAsync(m => m.Id == Match.Id);
 
         if (resultToUpdate is null)
         {
@@ -98,19 +98,19 @@ public class ResultEditModel : PageModel
         /// Atualiza a coleção de vencedores 
         /// começando por criar a nova lista de vencedores
         /// </summary>
-        var newWienners = await _context.Members.Where(m => SelectedWienners.Contains(m.Id)).ToListAsync();
+        var newWinners = await _context.Members.Where(m => SelectedWinners.Contains(m.Id)).ToListAsync();
 
         ///<summary>
         /// Depois limpa a coleção
         /// </summary>
-        resultToUpdate.Result.Wienners.Clear();
+        resultToUpdate.Result.Winners.Clear();
 
         ///<summary>
         /// E volta a preencher
         /// </summary>
-        foreach (var member in newWienners)
+        foreach (var member in newWinners)
         {
-            resultToUpdate.Result.Wienners.Add(member);
+            resultToUpdate.Result.Winners.Add(member);
         }
 
         //_context.Attach(Match).State = EntityState.Modified;

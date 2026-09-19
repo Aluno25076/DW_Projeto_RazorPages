@@ -21,6 +21,6 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        Match = await _context.Matches.Include(m => m.Field).Include(m => m.Participants).Include(m => m.Result).ThenInclude(r => r.Wienners).ToListAsync();
+        Match = await _context.Matches.Include(m => m.Field).Include(m => m.Participants).Include(m => m.Result).ThenInclude(r => r.Winners).ToListAsync();
     }
 }

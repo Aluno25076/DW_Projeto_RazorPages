@@ -50,7 +50,7 @@ namespace DW_Projeto_RazorPages.Data.Model
             [Key]
             public int ResultId { get; set; }
 
-            public ICollection<Member> Wienners { get; set; } = [];
+            public ICollection<Member> Winners { get; set; } = [];
         }
     }
 }

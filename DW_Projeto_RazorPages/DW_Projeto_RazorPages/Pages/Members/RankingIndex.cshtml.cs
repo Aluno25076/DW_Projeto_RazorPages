@@ -23,7 +23,7 @@ public class RankingIndexModel : PageModel
                                 .Include(m => m.Subscription)
                                 .Include(m => m.Matches)
                                 .ThenInclude(p => p.Result)
-                                .ThenInclude(r => r.Wienners)
+                                .ThenInclude(r => r.Winners)
                                 .OrderByDescending(m => m.Wins.Count)
                                 .ToListAsync();
     }

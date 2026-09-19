@@ -86,7 +86,7 @@ public class EditModel : PageModel
             return Page();
         }
 
-        var matchToUpdate = await _context.Matches.Include(m => m.Participants).Include(m => m.Result).ThenInclude(r =>  r.Wienners).FirstOrDefaultAsync(m => m.Id == Match.Id);
+        var matchToUpdate = await _context.Matches.Include(m => m.Participants).Include(m => m.Result).ThenInclude(r =>  r.Winners).FirstOrDefaultAsync(m => m.Id == Match.Id);
 
         if (matchToUpdate is null)
         {
@@ -113,7 +113,7 @@ public class EditModel : PageModel
         ///<summary>
         /// Inclusive o vencedores anteriores, uma vez que podera ter havido alteração nos partecipantes
         /// </summary>
-        matchToUpdate.Result.Wienners.Clear();
+        matchToUpdate.Result.Winners.Clear();
 
         ///<summary>
         /// E volta a preencher
