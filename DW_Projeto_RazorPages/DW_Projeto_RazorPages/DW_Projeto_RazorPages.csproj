@@ -24,9 +24,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Employees\" />
-    <Folder Include="Pages\MatchPages\" />
-    <Folder Include="Pages\Members\" />
-    <Folder Include="Pages\resutls\" />
   </ItemGroup>
 
 </Project>
