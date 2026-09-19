@@ -21,7 +21,7 @@ public class CreateModel : PageModel
 
         /// <summary>
         /// preencher a dropdown com os campos disponíveis
-        /// (mostra o atributo 'Size'; o value é o 'Id')
+        /// (mostra o atributo 'Numero'; o valor é o 'Id')
         /// </summary>
         /// <returns></returns>
 
@@ -46,6 +46,7 @@ public class CreateModel : PageModel
         /// Isto remove a validação automática da navegação, caso contrario o ModelState ficará invalido
         ///<summary>
         ModelState.Remove("Match.Participants");
+        ModelState.Remove("Match.Result");
 
         if (!ModelState.IsValid || (SelectedParticipants.Count != 2 && SelectedParticipants.Count != 4))
         {
@@ -82,6 +83,8 @@ public class CreateModel : PageModel
         /// Associa os Membors da lista de participantes á Partida
         /// </summary>
         Match.Participants = members;
+
+        Match.Result = new Match.MatchResult();
 
         _context.Matches.Add(Match);
         await _context.SaveChangesAsync();

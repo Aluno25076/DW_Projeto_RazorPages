@@ -152,14 +152,15 @@ namespace DW_Projeto_RazorPages.Data.Seed
             }
 
             //Partidas criadas
+            var matches = Array.Empty<Match>();
             if (!dbContext.Matches.Any() && fld.Length > 0)
             {
-                var matches = new Match[] {
+                matches = [
                     new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(2)), Field = fld[0],
-                       Participants = [membr[0], membr[1]] },
+                       Participants = [membr[0], membr[1]], Result = new Match.MatchResult{Wienners = [membr[0]]} },
                     new Match { Day = DateOnly.FromDateTime(DateTime.Now.AddDays(5)), Field = fld[2],
-                       Participants = [membr[3], membr[4]] }
-                };
+                       Participants = [membr[3], membr[4]], Result = new Match.MatchResult() }
+                ];
                 await dbContext.Matches.AddRangeAsync(matches);
                 haAdicao = true;
             }

@@ -40,5 +40,10 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Lista de jogos em que o membro participa
         /// </summary>
         public ICollection<Match> Matches { get; set; } = [];
+
+        ///<summary>
+        ///Lista de vitorias do membro
+        /// </summary>
+        public ICollection<Match.MatchResult> Wins { get; set; } = [];
     }
 }

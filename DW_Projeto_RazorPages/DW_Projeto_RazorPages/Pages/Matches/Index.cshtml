@@ -7,9 +7,12 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+@if (User.IsInRole("Trainer") || User.IsInRole("Administrator")){
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Match[0].Participants)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Match[0].Result)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -42,11 +47,40 @@
                         <br />
                     }
                 </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                
+                    @if (item.Result is null || item.Result.Wienners.Count == 0)
+                    {
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <td>
+                                <a asp-page="./ResultEdit" asp-route-id="@item.Id">Create Result</a>
+                            </td>
+                        }
+                    }
+                    else
+                    {
+                        <td>
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <a asp-page="./ResultEdit" asp-route-id="@item.Id">Correct Result</a>
+                            }
+                                <a asp-page="./ResultDetails" asp-route-id="@item.Id">Resultado</a>
+                        </td>
+                    }
+
+                
+                @if (User.IsInRole("Trainer") || User.IsInRole("Administrator"))
+                {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        }
+                    </td>
+                }
+                
         </tr>
 }
     </tbody>

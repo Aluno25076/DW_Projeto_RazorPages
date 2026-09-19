@@ -4,6 +4,7 @@ using DW_Projeto_RazorPages.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DW_Projeto_RazorPages.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260918134737_Results")]
+    partial class Results
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,29 +63,11 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.Property<int>("FieldFK")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FieldFK");
 
-                    b.HasIndex("ResultId");
-
                     b.ToTable("Matches");
-                });
-
-            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Match+MatchResult", b =>
-                {
-                    b.Property<int>("ResultId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultId"));
-
-                    b.HasKey("ResultId");
-
-                    b.ToTable("MatchResult");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.MyUser", b =>
@@ -167,21 +152,6 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.HasIndex("ParticipantsId");
 
                     b.ToTable("MatchMember");
-                });
-
-            modelBuilder.Entity("MatchResultMember", b =>
-                {
-                    b.Property<int>("WiennersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WinsResultId")
-                        .HasColumnType("int");
-
-                    b.HasKey("WiennersId", "WinsResultId");
-
-                    b.HasIndex("WinsResultId");
-
-                    b.ToTable("MatchResultMember");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -429,15 +399,7 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Match+MatchResult", "Result")
-                        .WithMany()
-                        .HasForeignKey("ResultId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Field");
-
-                    b.Navigation("Result");
                 });
 
             modelBuilder.Entity("MatchMember", b =>
@@ -451,21 +413,6 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.HasOne("DW_Projeto_RazorPages.Data.Model.Member", null)
                         .WithMany()
                         .HasForeignKey("ParticipantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MatchResultMember", b =>
-                {
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Member", null)
-                        .WithMany()
-                        .HasForeignKey("WiennersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Match+MatchResult", null)
-                        .WithMany()
-                        .HasForeignKey("WinsResultId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

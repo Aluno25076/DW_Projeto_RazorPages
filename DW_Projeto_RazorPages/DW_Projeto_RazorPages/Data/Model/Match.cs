@@ -42,5 +42,15 @@ namespace DW_Projeto_RazorPages.Data.Model
         /// Lista de participantes (Members) no jogo
         /// </summary>
         public ICollection<Member> Participants { get; set; } = [];
+
+        public MatchResult Result { get; set; } = null!;
+
+        public class MatchResult
+        {
+            [Key]
+            public int ResultId { get; set; }
+
+            public ICollection<Member> Wienners { get; set; } = [];
+        }
     }
 }

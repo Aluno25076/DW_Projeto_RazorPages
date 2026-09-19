@@ -57,6 +57,7 @@ public class EditModel : PageModel
         /// Isto remove a validação automática da navegação, caso contrario o ModelState ficará invalido
         ///<summary>
         ModelState.Remove("Match.Participants");
+        ModelState.Remove("Match.Result");
 
         if (!ModelState.IsValid || (SelectedParticipants.Count != 2 && SelectedParticipants.Count != 4))
         {
@@ -83,7 +84,7 @@ public class EditModel : PageModel
             return Page();
         }
 
-        var matchToUpdate = await _context.Matches.Include(m => m.Participants).FirstOrDefaultAsync(m => m.Id == Match.Id);
+        var matchToUpdate = await _context.Matches.Include(m => m.Participants).Include(m => m.Result).ThenInclude(r =>  r.Wienners).FirstOrDefaultAsync(m => m.Id == Match.Id);
 
         if (matchToUpdate is null)
         {
@@ -103,9 +104,14 @@ public class EditModel : PageModel
         var newParticipants = await _context.Members.Where(m => SelectedParticipants.Contains(m.Id)).ToListAsync();
 
         ///<summary>
-        /// Depois limpa a colleção
+        /// Depois limpa a coleção
         /// </summary>
         matchToUpdate.Participants.Clear();
+
+        ///<summary>
+        /// Inclusive o vencedores anteriores, uma vez que podera ter havido alteração nos partecipantes
+        /// </summary>
+        matchToUpdate.Result.Wienners.Clear();
 
         ///<summary>
         /// E volta a preencher

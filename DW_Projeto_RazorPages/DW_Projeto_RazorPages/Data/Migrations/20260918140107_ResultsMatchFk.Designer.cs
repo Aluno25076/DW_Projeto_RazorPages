@@ -4,6 +4,7 @@ using DW_Projeto_RazorPages.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DW_Projeto_RazorPages.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260918140107_ResultsMatchFk")]
+    partial class ResultsMatchFk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,29 +63,11 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.Property<int>("FieldFK")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResultId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("FieldFK");
 
-                    b.HasIndex("ResultId");
-
                     b.ToTable("Matches");
-                });
-
-            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Match+MatchResult", b =>
-                {
-                    b.Property<int>("ResultId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResultId"));
-
-                    b.HasKey("ResultId");
-
-                    b.ToTable("MatchResult");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.MyUser", b =>
@@ -122,6 +107,24 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("MyUser");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Result", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("MatchFK")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MatchFK");
+
+                    b.ToTable("Results");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscription", b =>
@@ -167,21 +170,6 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.HasIndex("ParticipantsId");
 
                     b.ToTable("MatchMember");
-                });
-
-            modelBuilder.Entity("MatchResultMember", b =>
-                {
-                    b.Property<int>("WiennersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WinsResultId")
-                        .HasColumnType("int");
-
-                    b.HasKey("WiennersId", "WinsResultId");
-
-                    b.HasIndex("WinsResultId");
-
-                    b.ToTable("MatchResultMember");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -413,8 +401,13 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("ResultId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SubscriptionFK")
                         .HasColumnType("int");
+
+                    b.HasIndex("ResultId");
 
                     b.HasIndex("SubscriptionFK");
 
@@ -429,15 +422,18 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Match+MatchResult", "Result")
+                    b.Navigation("Field");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Result", b =>
+                {
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Match", "Match")
                         .WithMany()
-                        .HasForeignKey("ResultId")
+                        .HasForeignKey("MatchFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Field");
-
-                    b.Navigation("Result");
+                    b.Navigation("Match");
                 });
 
             modelBuilder.Entity("MatchMember", b =>
@@ -451,21 +447,6 @@ namespace DW_Projeto_RazorPages.Data.Migrations
                     b.HasOne("DW_Projeto_RazorPages.Data.Model.Member", null)
                         .WithMany()
                         .HasForeignKey("ParticipantsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MatchResultMember", b =>
-                {
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Member", null)
-                        .WithMany()
-                        .HasForeignKey("WiennersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Match+MatchResult", null)
-                        .WithMany()
-                        .HasForeignKey("WinsResultId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -523,6 +504,10 @@ namespace DW_Projeto_RazorPages.Data.Migrations
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Member", b =>
                 {
+                    b.HasOne("DW_Projeto_RazorPages.Data.Model.Result", null)
+                        .WithMany("Winners")
+                        .HasForeignKey("ResultId");
+
                     b.HasOne("DW_Projeto_RazorPages.Data.Model.Subscription", "Subscription")
                         .WithMany("Subscribers")
                         .HasForeignKey("SubscriptionFK")
@@ -535,6 +520,11 @@ namespace DW_Projeto_RazorPages.Data.Migrations
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Field", b =>
                 {
                     b.Navigation("Matches");
+                });
+
+            modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Result", b =>
+                {
+                    b.Navigation("Winners");
                 });
 
             modelBuilder.Entity("DW_Projeto_RazorPages.Data.Model.Subscription", b =>
